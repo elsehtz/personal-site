@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "es2015"],
+    "outDir": "./built",
+    "sourceMap": true,
+    "declaration": true,
+    "noImplicitAny": true,
+    "module": "commonjs",        // or "esnext"
+    "esModuleInterop": true,
+    "target": "es5",
+    "allowJs": true,
+    "jsx": "react-jsx",
+    "allowSyntheticDefaultImports": true,
+  },
+  "include": ["node_modules", "dist", "lib"]
+}
