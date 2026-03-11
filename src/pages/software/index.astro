@@ -1,0 +1,42 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Card from "../../components/Card.astro";
+
+const allProjects = await getCollection("software");
+const projects = allProjects.sort((a, b) => {
+  if (a.data.featured && !b.data.featured) return -1;
+  if (!a.data.featured && b.data.featured) return 1;
+  return b.data.date.getTime() - a.data.date.getTime();
+});
+---
+
+<BaseLayout title="Software" description="Projects, open source, and engineering work.">
+  <h1 class="text-3xl font-bold text-neutral-100 mb-2">Software</h1>
+  <p class="text-neutral-400 mb-4">
+    A mix of side projects, open source contributions, and AI experiments.
+  </p>
+  <a
+    href="/software/resume"
+    class="inline-block text-sm text-neutral-400 hover:text-neutral-200 border border-neutral-700 rounded px-3 py-1.5 mb-10 transition-colors"
+  >
+    View Resume →
+  </a>
+  {
+    projects.length === 0 ? (
+      <p class="text-neutral-500">No projects listed yet.</p>
+    ) : (
+      <div class="flex flex-col gap-4">
+        {projects.map((project) => (
+          <Card
+            title={project.data.title}
+            description={project.data.description}
+            href={`/software/${project.id}`}
+            date={project.data.date}
+            tags={project.data.tags}
+          />
+        ))}
+      </div>
+    )
+  }
+</BaseLayout>

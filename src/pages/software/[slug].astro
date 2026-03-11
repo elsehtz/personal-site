@@ -1,0 +1,44 @@
+---
+import { getCollection, render } from "astro:content";
+import ContentLayout from "../../layouts/ContentLayout.astro";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("software");
+  return projects.map((project) => ({ params: { slug: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+
+<ContentLayout
+  title={project.data.title}
+  description={project.data.description}
+  date={project.data.date}
+  backHref="/software"
+  backLabel="Software"
+>
+  <div class="flex gap-3 mb-8 not-prose">
+    {
+      project.data.github && (
+        <a
+          href={project.data.github}
+          class="text-sm text-neutral-400 hover:text-neutral-200 border border-neutral-700 rounded px-3 py-1.5 transition-colors"
+        >
+          GitHub →
+        </a>
+      )
+    }
+    {
+      project.data.live && (
+        <a
+          href={project.data.live}
+          class="text-sm text-neutral-400 hover:text-neutral-200 border border-neutral-700 rounded px-3 py-1.5 transition-colors"
+        >
+          Live →
+        </a>
+      )
+    }
+  </div>
+  <Content />
+</ContentLayout>

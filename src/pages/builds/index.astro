@@ -1,0 +1,42 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Card from "../../components/Card.astro";
+
+const allBuilds = await getCollection("builds");
+const builds = allBuilds.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const categories = ["EDA", "3dprint", "circuit", "DIY", "woodworking"] as const;
+const categoryLabels: Record<string, string> = {
+  EDA: "PCB / EDA",
+  "3dprint": "3D Printing",
+  circuit: "Circuits",
+  DIY: "DIY",
+  woodworking: "Woodworking",
+};
+---
+
+<BaseLayout title="Builds" description="Physical build projects — PCBs, 3D prints, circuits, and more.">
+  <h1 class="text-3xl font-bold text-neutral-100 mb-2">Builds</h1>
+  <p class="text-neutral-400 mb-10">
+    Physical projects spanning PCB design, 3D printing, electronics, DIY builds, and woodworking.
+  </p>
+  {
+    builds.length === 0 ? (
+      <p class="text-neutral-500">No builds documented yet.</p>
+    ) : (
+      <div class="flex flex-col gap-4">
+        {builds.map((build) => (
+          <Card
+            title={build.data.title}
+            description={build.data.description}
+            href={`/builds/${build.id}`}
+            date={build.data.date}
+            meta={categoryLabels[build.data.category] ?? build.data.category}
+            tags={build.data.status !== "completed" ? [build.data.status] : []}
+          />
+        ))}
+      </div>
+    )
+  }
+</BaseLayout>
