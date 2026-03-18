@@ -1,0 +1,42 @@
+---
+import { getCollection, render } from "astro:content";
+import ContentLayout from "../../layouts/ContentLayout.astro";
+
+export async function getStaticPaths() {
+  const builds = await getCollection("builds");
+  return builds.map((build) => ({ params: { slug: build.id }, props: { build } }));
+}
+
+const { build } = Astro.props;
+const { Content } = await render(build);
+
+const categoryLabels: Record<string, string> = {
+  EDA: "PCB / EDA",
+  "3dprint": "3D Printing",
+  circuit: "Circuits",
+  DIY: "DIY",
+  woodworking: "Woodworking",
+};
+---
+
+<ContentLayout
+  title={build.data.title}
+  description={build.data.description}
+  date={build.data.date}
+  backHref="/builds"
+  backLabel="Builds"
+>
+  <div class="flex gap-3 mb-8 not-prose">
+    <span class="text-sm text-neutral-400 border border-neutral-700 rounded px-3 py-1.5">
+      {categoryLabels[build.data.category] ?? build.data.category}
+    </span>
+    {
+      build.data.status !== "completed" && (
+        <span class="text-sm text-neutral-400 border border-neutral-700 rounded px-3 py-1.5 capitalize">
+          {build.data.status}
+        </span>
+      )
+    }
+  </div>
+  <Content />
+</ContentLayout>

@@ -1,0 +1,30 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Card from "../../../components/Card.astro";
+
+const allRecipes = await getCollection("recipes");
+const recipes = allRecipes.sort((a, b) => a.data.title.localeCompare(b.data.title));
+---
+
+<BaseLayout title="Baking" description="Recipes I've refined and return to.">
+  <a href="/hobbies" class="text-sm text-neutral-400 hover:text-neutral-200 mb-8 inline-block">← Hobbies</a>
+  <h1 class="text-3xl font-bold text-neutral-100 mb-2">Baking</h1>
+  <p class="text-neutral-400 mb-10">Recipes I've made enough times to be worth writing down.</p>
+  {
+    recipes.length === 0 ? (
+      <p class="text-neutral-500">No recipes documented yet.</p>
+    ) : (
+      <div class="flex flex-col gap-4">
+        {recipes.map((recipe) => (
+          <Card
+            title={recipe.data.title}
+            description={recipe.data.description}
+            href={`/hobbies/baking/${recipe.id}`}
+            meta={`${recipe.data.category} · Serves ${recipe.data.servings}`}
+          />
+        ))}
+      </div>
+    )
+  }
+</BaseLayout>

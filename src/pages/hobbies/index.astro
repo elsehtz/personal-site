@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const hobbies = [
+  {
+    href: "/hobbies/boxing",
+    label: "Boxing",
+    description: "Amateur fights, training logs, and the sport I'm most dedicated to.",
+  },
+  {
+    href: "/hobbies/baking",
+    label: "Baking",
+    description: "Recipes I've refined and return to. Mostly bread and pastry.",
+  },
+  {
+    href: "/hobbies/books",
+    label: "Books",
+    description: "What I'm reading and what stuck with me. Linked to my Goodreads shelf.",
+  },
+];
+---
+
+<BaseLayout title="Hobbies" description="Boxing, baking, and books.">
+  <h1 class="text-3xl font-bold text-neutral-100 mb-2">Hobbies</h1>
+  <p class="text-neutral-400 mb-10">Things I pursue outside of a screen.</p>
+  <div class="flex flex-col gap-4">
+    {
+      hobbies.map(({ href, label, description }) => (
+        <a
+          href={href}
+          class="p-6 rounded-lg border border-neutral-800 hover:border-neutral-600 transition-colors group"
+        >
+          <h2 class="font-semibold text-neutral-100 group-hover:text-white mb-2 transition-colors">{label}</h2>
+          <p class="text-sm text-neutral-400">{description}</p>
+        </a>
+      ))
+    }
+  </div>
+</BaseLayout>
