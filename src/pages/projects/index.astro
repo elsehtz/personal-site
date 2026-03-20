@@ -1,0 +1,126 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Card from "../../components/Card.astro";
+
+const allProjects = await getCollection("software");
+const allBuilds = await getCollection("builds");
+
+const categoryLabels: Record<string, string> = {
+  EDA: "PCB / EDA",
+  "3dprint": "3D Printing",
+  circuit: "Circuits",
+  DIY: "DIY",
+  woodworking: "Woodworking",
+};
+
+const softwareItems = allProjects
+  .sort((a, b) => {
+    if (a.data.featured && !b.data.featured) return -1;
+    if (!a.data.featured && b.data.featured) return 1;
+    return b.data.date.getTime() - a.data.date.getTime();
+  })
+  .map((p) => ({
+    type: "software" as const,
+    title: p.data.title,
+    description: p.data.description,
+    href: `/software/${p.id}`,
+    date: p.data.date,
+    tags: p.data.tags,
+    meta: undefined,
+  }));
+
+const buildItems = allBuilds
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .map((b) => ({
+    type: "build" as const,
+    title: b.data.title,
+    description: b.data.description,
+    href: `/builds/${b.id}`,
+    date: b.data.date,
+    tags: b.data.status !== "completed" ? [b.data.status] : [],
+    meta: categoryLabels[b.data.category] ?? b.data.category,
+  }));
+
+const allItems = [...softwareItems, ...buildItems].sort(
+  (a, b) => b.date.getTime() - a.date.getTime()
+);
+---
+
+<BaseLayout title="Projects" description="Software projects, physical builds, and experiments.">
+  <h1 class="text-3xl font-bold text-neutral-100 mb-2">Projects</h1>
+  <p class="text-neutral-400 mb-8">
+    Software work, open source experiments, and physical builds — circuits, PCBs, 3D prints, and more.
+  </p>
+
+  <div class="flex items-center gap-2 mb-8">
+    <button
+      data-filter="all"
+      class="filter-btn px-3 py-1.5 rounded text-sm border transition-colors border-neutral-500 text-neutral-100 bg-neutral-800"
+    >
+      All
+    </button>
+    <button
+      data-filter="software"
+      class="filter-btn px-3 py-1.5 rounded text-sm border transition-colors border-neutral-700 text-neutral-400 hover:text-neutral-200 hover:border-neutral-500"
+    >
+      Software
+    </button>
+    <button
+      data-filter="build"
+      class="filter-btn px-3 py-1.5 rounded text-sm border transition-colors border-neutral-700 text-neutral-400 hover:text-neutral-200 hover:border-neutral-500"
+    >
+      Builds
+    </button>
+  </div>
+
+  {
+    allItems.length === 0 ? (
+      <p class="text-neutral-500">No projects yet.</p>
+    ) : (
+      <div class="flex flex-col gap-4" id="projects-list">
+        {allItems.map((item) => (
+          <div data-type={item.type}>
+            <Card
+              title={item.title}
+              description={item.description}
+              href={item.href}
+              date={item.date}
+              tags={item.tags}
+              meta={item.meta}
+            />
+          </div>
+        ))}
+      </div>
+    )
+  }
+</BaseLayout>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+  const items = document.querySelectorAll<HTMLElement>("#projects-list [data-type]");
+
+  const activeClass = ["border-neutral-500", "text-neutral-100", "bg-neutral-800"];
+  const inactiveClass = ["border-neutral-700", "text-neutral-400", "hover:text-neutral-200", "hover:border-neutral-500"];
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const filter = btn.dataset.filter;
+
+      buttons.forEach((b) => {
+        b.classList.remove(...activeClass);
+        b.classList.add(...inactiveClass);
+      });
+      btn.classList.add(...activeClass);
+      btn.classList.remove(...inactiveClass);
+
+      items.forEach((item) => {
+        if (filter === "all" || item.dataset.type === filter) {
+          item.style.display = "";
+        } else {
+          item.style.display = "none";
+        }
+      });
+    });
+  });
+</script>

@@ -8,14 +8,9 @@ const sections = [
     description: "Infrequent writing on tech, politics, and things worth sharing.",
   },
   {
-    href: "/software",
-    label: "Software",
-    description: "Projects, open source work, AI experiments, and my resume.",
-  },
-  {
-    href: "/builds",
-    label: "Builds",
-    description: "Physical projects — circuits, PCBs, 3D prints, DIY builds, and woodworking.",
+    href: "/projects",
+    label: "Projects",
+    description: "Software work, open source experiments, physical builds, PCBs, and 3D prints.",
   },
   {
     href: "/hobbies",
@@ -26,13 +21,13 @@ const sections = [
 ---
 
 <BaseLayout title="zak" description="Personal site">
-  <section class="py-16">
+  <section class="py-20">
     <h1 class="text-4xl font-bold text-neutral-100 mb-3">Hey, I'm Zak</h1>
-    <p class="text-neutral-400 text-lg max-w-xl mb-16">
+    <p class="text-neutral-400 text-lg max-w-xl mb-14">
       Software engineer, amateur boxer, and maker of things. This is where I document the work and interests that
       matter to me.
     </p>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
       {
         sections.map(({ href, label, description }) => (
           <a

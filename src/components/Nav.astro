@@ -1,19 +1,26 @@
 ---
 const navLinks = [
   { href: "/blog", label: "Blog" },
-  { href: "/software", label: "Software" },
-  { href: "/builds", label: "Builds" },
+  { href: "/projects", label: "Projects" },
   { href: "/hobbies", label: "Hobbies" },
   { href: "/professional", label: "Professional" },
 ];
 
 const current = Astro.url.pathname;
+
+function isActive(href: string) {
+  if (href === "/projects") {
+    return current.startsWith("/projects") || current.startsWith("/software") || current.startsWith("/builds");
+  }
+  return current.startsWith(href);
+}
 ---
 
 <header class="border-b border-neutral-800">
   <nav class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
-    <a href="/" class="font-semibold text-neutral-100 hover:text-white transition-colors">
-      zak
+    <a href="/" class="group flex flex-col leading-tight transition-colors">
+      <span class="font-semibold text-neutral-100 group-hover:text-white transition-colors">Zak ElSeht</span>
+      <span class="text-xs text-neutral-500 group-hover:text-neutral-400 transition-colors">personal site</span>
     </a>
     <ul class="flex items-center gap-6">
       {
@@ -23,7 +30,7 @@ const current = Astro.url.pathname;
               href={href}
               class:list={[
                 "text-sm transition-colors",
-                current.startsWith(href)
+                isActive(href)
                   ? "text-neutral-100 font-medium"
                   : "text-neutral-400 hover:text-neutral-200",
               ]}
