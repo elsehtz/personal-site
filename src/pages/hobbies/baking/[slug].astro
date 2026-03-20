@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import ContentLayout from "../../../layouts/ContentLayout.astro";
+import PasswordGate from "../../../components/PasswordGate.astro";
 
 export async function getStaticPaths() {
   const recipes = await getCollection("recipes");
@@ -34,5 +35,11 @@ const { title, description, category, servings, prepTime, cookTime, ingredients 
   </ul>
 
   <h2>Method</h2>
-  <Content />
+  {recipe.data.password ? (
+    <PasswordGate password={recipe.data.password}>
+      <Content />
+    </PasswordGate>
+  ) : (
+    <Content />
+  )}
 </ContentLayout>

@@ -9,6 +9,7 @@ const blog = defineCollection({
     date: z.coerce.date(),
     tags: z.array(z.enum(["tech", "political", "other"])).default(["other"]),
     draft: z.boolean().default(false),
+    password: z.string().optional(),
   }),
 });
 
@@ -34,6 +35,7 @@ const builds = defineCollection({
     date: z.coerce.date(),
     images: z.array(z.string()).default([]),
     status: z.enum(["completed", "in-progress", "planned"]).default("completed"),
+    password: z.string().optional(),
   }),
 });
 
@@ -47,6 +49,7 @@ const recipes = defineCollection({
     prepTime: z.string(),
     cookTime: z.string(),
     ingredients: z.array(z.string()),
+    password: z.string().optional(),
   }),
 });
 

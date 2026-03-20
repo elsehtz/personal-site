@@ -1,5 +1,11 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import PasswordGate from "../../components/PasswordGate.astro";
+
+// TODO: Set your sparring footage password here
+const SPARRING_PASSWORD = "changeme";
+// TODO: Set the URL to your sparring footage repository here
+const SPARRING_REPO_URL = "https://github.com/your-username/sparring-footage";
 ---
 
 <BaseLayout title="Boxing" description="Amateur boxing, training, and fight records.">
@@ -12,8 +18,22 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     <p class="text-neutral-500 text-sm">Fight record coming soon.</p>
   </section>
 
-  <section>
+  <section class="mb-12">
     <h2 class="text-lg font-semibold text-neutral-200 mb-4">Notes</h2>
     <p class="text-neutral-500 text-sm">Training notes and reflections will live here.</p>
+  </section>
+
+  <section>
+    <h2 class="text-lg font-semibold text-neutral-200 mb-4">Sparring Footage</h2>
+    <PasswordGate password={SPARRING_PASSWORD}>
+      <a
+        href={SPARRING_REPO_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 text-neutral-200 border border-neutral-700 rounded px-4 py-2.5 hover:bg-neutral-800 transition-colors text-sm font-medium"
+      >
+        View Sparring Footage Repository →
+      </a>
+    </PasswordGate>
   </section>
 </BaseLayout>
