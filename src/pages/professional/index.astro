@@ -1,0 +1,54 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Professional">
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-2xl font-semibold text-neutral-100 mb-4">Professional</h1>
+    <p class="text-neutral-400 mb-10 max-w-xl">
+      I'm a software engineer who enjoys building things that are useful and well-crafted.
+      Here's where you can find my work and connect with me professionally.
+    </p>
+
+    <div class="flex flex-col gap-4">
+      <a
+        href="/resume.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group flex items-center justify-between border border-neutral-800 rounded-lg px-5 py-4 hover:border-neutral-600 transition-colors"
+      >
+        <div>
+          <p class="text-sm font-medium text-neutral-100">Resume</p>
+          <p class="text-xs text-neutral-500 mt-0.5">View or download my resume</p>
+        </div>
+        <span class="text-neutral-500 group-hover:text-neutral-300 transition-colors text-sm">↗</span>
+      </a>
+
+      <a
+        href="https://linkedin.com/in/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group flex items-center justify-between border border-neutral-800 rounded-lg px-5 py-4 hover:border-neutral-600 transition-colors"
+      >
+        <div>
+          <p class="text-sm font-medium text-neutral-100">LinkedIn</p>
+          <p class="text-xs text-neutral-500 mt-0.5">linkedin.com/in/</p>
+        </div>
+        <span class="text-neutral-500 group-hover:text-neutral-300 transition-colors text-sm">↗</span>
+      </a>
+
+      <a
+        href="https://github.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group flex items-center justify-between border border-neutral-800 rounded-lg px-5 py-4 hover:border-neutral-600 transition-colors"
+      >
+        <div>
+          <p class="text-sm font-medium text-neutral-100">GitHub</p>
+          <p class="text-xs text-neutral-500 mt-0.5">github.com/</p>
+        </div>
+        <span class="text-neutral-500 group-hover:text-neutral-300 transition-colors text-sm">↗</span>
+      </a>
+    </div>
+  </div>
+</BaseLayout>
