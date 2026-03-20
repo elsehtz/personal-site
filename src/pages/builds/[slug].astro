@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import ContentLayout from "../../layouts/ContentLayout.astro";
+import PasswordGate from "../../components/PasswordGate.astro";
 
 export async function getStaticPaths() {
   const builds = await getCollection("builds");
@@ -38,5 +39,11 @@ const categoryLabels: Record<string, string> = {
       )
     }
   </div>
-  <Content />
+  {build.data.password ? (
+    <PasswordGate password={build.data.password}>
+      <Content />
+    </PasswordGate>
+  ) : (
+    <Content />
+  )}
 </ContentLayout>
