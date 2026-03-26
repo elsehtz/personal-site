@@ -1,5 +1,5 @@
 ---
-title: "A quick chrome extension"
+title: "A quick chrome extension: g-drive dark mode"
 description: "Got bored while using drive, and said 'hey, why not?'"
 category: "DIY"
 date: 2026-03-10

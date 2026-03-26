@@ -1,6 +1,6 @@
 ---
 const navLinks = [
-  { href: "/blog", label: "Blog" },
+  { href: "/digital-journal", label: "Digital Journal" },
   { href: "/projects", label: "Projects" },
   { href: "/hobbies", label: "Hobbies" },
   { href: "/professional", label: "Professional" },
@@ -11,6 +11,9 @@ const current = Astro.url.pathname;
 function isActive(href: string) {
   if (href === "/projects") {
     return current.startsWith("/projects") || current.startsWith("/software") || current.startsWith("/builds");
+  }
+  if (href === "/digital-journal") {
+    return current.startsWith("/digital-journal") || current.startsWith("/blog");
   }
   return current.startsWith(href);
 }

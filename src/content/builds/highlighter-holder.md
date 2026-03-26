@@ -1,9 +1,9 @@
 ---
 title: "3D print: Altitude brand highlighter holders"
-description: "A highlighter shelf."
+description: "A highlighter shelf. for my workbench"
 tags: ["Bambu", "DIY", "Print"]
 date: 2026-03-10
-featured: true
+category: "3dprint"
 ---
 
 Ya I was sick my highlighters just being all free-range on my desk so now they're confined to the pegboard wall.  
