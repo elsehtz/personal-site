@@ -5,6 +5,7 @@ import Card from "../../components/Card.astro";
 
 const allProjects = await getCollection("software");
 const allBuilds = await getCollection("builds");
+const allDesignPrompts = await getCollection("designPrompts", ({ data }) => !data.draft);
 
 const categoryLabels: Record<string, string> = {
   EDA: "PCB / EDA",
@@ -42,7 +43,19 @@ const buildItems = allBuilds
     meta: categoryLabels[b.data.category] ?? b.data.category,
   }));
 
-const allItems = [...softwareItems, ...buildItems].sort(
+const designPromptItems = allDesignPrompts
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .map((p) => ({
+    type: "design-prompt" as const,
+    title: p.data.title,
+    description: p.data.description,
+    href: `/design-prompts/${p.id}`,
+    date: p.data.date,
+    tags: p.data.tags,
+    meta: p.data.tool,
+  }));
+
+const allItems = [...softwareItems, ...buildItems, ...designPromptItems].sort(
   (a, b) => b.date.getTime() - a.date.getTime()
 );
 ---
@@ -71,6 +84,12 @@ const allItems = [...softwareItems, ...buildItems].sort(
       class="filter-btn px-3 py-1.5 rounded text-sm border transition-colors border-neutral-700 text-neutral-400 hover:text-neutral-200 hover:border-neutral-500"
     >
       Builds
+    </button>
+    <button
+      data-filter="design-prompt"
+      class="filter-btn px-3 py-1.5 rounded text-sm border transition-colors border-neutral-700 text-neutral-400 hover:text-neutral-200 hover:border-neutral-500"
+    >
+      Design Prompts
     </button>
   </div>
 

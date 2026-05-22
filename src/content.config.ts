@@ -53,4 +53,16 @@ const recipes = defineCollection({
   }),
 });
 
-export const collections = { blog, software, builds, recipes };
+const designPrompts = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/design-prompts" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    date: z.coerce.date(),
+    tags: z.array(z.string()).default([]),
+    tool: z.string().optional(),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { blog, software, builds, recipes, designPrompts };
