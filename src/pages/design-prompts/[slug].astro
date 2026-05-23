@@ -1,0 +1,27 @@
+---
+import { getCollection, render } from "astro:content";
+import ContentLayout from "../../layouts/ContentLayout.astro";
+
+export async function getStaticPaths() {
+  const prompts = await getCollection("designPrompts");
+  return prompts.map((prompt) => ({ params: { slug: prompt.id }, props: { prompt } }));
+}
+
+const { prompt } = Astro.props;
+const { Content } = await render(prompt);
+---
+
+<ContentLayout
+  title={prompt.data.title}
+  description={prompt.data.description}
+  date={prompt.data.date}
+  backHref="/projects"
+  backLabel="Projects"
+>
+  {
+    prompt.data.tool && (
+      <p class="text-sm text-neutral-500 mb-8 not-prose">Tool: {prompt.data.tool}</p>
+    )
+  }
+  <Content />
+</ContentLayout>
