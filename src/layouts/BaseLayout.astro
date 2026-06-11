@@ -8,7 +8,7 @@ interface Props {
   description?: string;
   fullWidth?: boolean;
 }
-
+import Analytics from '@vercel/analytics/astro';
 const { title, description = "Zak ElSeht — Design & Cloud Architecture", fullWidth = false } = Astro.props;
 ---
 
@@ -22,6 +22,7 @@ const { title, description = "Zak ElSeht — Design & Cloud Architecture", fullW
     <title>{title} — Zak ElSeht</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <Analytics />
   </head>
   <body class="min-h-screen flex flex-col" style="background-color: var(--bg);">
     <!-- Custom cursor -->
