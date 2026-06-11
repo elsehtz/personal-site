@@ -1,7 +1,7 @@
 ---
 const navLinks = [
-  { href: "/digital-journal", label: "Digital Journal" },
   { href: "/projects", label: "Projects" },
+  { href: "/digital-journal", label: "Journal" },
   { href: "/hobbies", label: "Hobbies" },
   { href: "/professional", label: "Professional" },
 ];
@@ -19,24 +19,52 @@ function isActive(href: string) {
 }
 ---
 
-<header class="border-b border-neutral-800">
-  <nav class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
-    <a href="/" class="group flex flex-col leading-tight transition-colors">
-      <span class="font-semibold text-neutral-100 group-hover:text-white transition-colors">Zak ElSeht</span>
-      <span class="text-xs text-neutral-500 group-hover:text-neutral-400 transition-colors">personal site</span>
+<header id="site-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+  <nav class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <a href="/" class="group flex flex-col leading-tight">
+      <span class="font-semibold text-sm tracking-wide" style="color: var(--text-primary);">ZAK ELSEHT</span>
+      <span class="font-mono text-[10px] tracking-widest uppercase" style="color: var(--accent);">Design & Cloud</span>
     </a>
-    <ul class="flex items-center gap-6">
+
+    <!-- Desktop nav -->
+    <ul class="hidden sm:flex items-center gap-8">
       {
         navLinks.map(({ href, label }) => (
           <li>
             <a
               href={href}
               class:list={[
-                "text-sm transition-colors",
-                isActive(href)
-                  ? "text-neutral-100 font-medium"
-                  : "text-neutral-400 hover:text-neutral-200",
+                "text-sm font-medium tracking-wide transition-colors relative group",
+                isActive(href) ? "text-accent" : "hover:text-white",
               ]}
+              style={isActive(href) ? "color: var(--accent);" : "color: var(--text-secondary);"}
+            >
+              {label}
+              <span class="absolute -bottom-0.5 left-0 w-0 h-px group-hover:w-full transition-all duration-300" style="background: var(--accent);"></span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <!-- Mobile hamburger -->
+    <button id="mobile-menu-btn" class="sm:hidden flex flex-col gap-1.5 p-2" aria-label="Menu">
+      <span class="w-5 h-px transition-all duration-300" style="background: var(--text-primary);"></span>
+      <span class="w-5 h-px transition-all duration-300" style="background: var(--text-primary);"></span>
+      <span class="w-3 h-px transition-all duration-300" style="background: var(--accent);"></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="sm:hidden hidden px-4 pb-6 pt-2" style="background: var(--bg); border-bottom: 1px solid var(--border);">
+    <ul class="flex flex-col gap-4">
+      {
+        navLinks.map(({ href, label }) => (
+          <li>
+            <a
+              href={href}
+              class="text-base font-medium block py-1"
+              style={isActive(href) ? "color: var(--accent);" : "color: var(--text-secondary);"}
             >
               {label}
             </a>
@@ -44,5 +72,32 @@ function isActive(href: string) {
         ))
       }
     </ul>
-  </nav>
+  </div>
 </header>
+
+<!-- Spacer for fixed nav -->
+<div class="h-16"></div>
+
+<script>
+  const nav = document.getElementById('site-nav');
+  const mobileBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  // Scroll effect
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+      nav?.style.setProperty('background', 'rgba(8, 10, 15, 0.85)');
+      nav?.style.setProperty('backdrop-filter', 'blur(20px)');
+      nav?.style.setProperty('border-bottom', '1px solid rgba(255,255,255,0.06)');
+    } else {
+      nav?.style.removeProperty('background');
+      nav?.style.removeProperty('backdrop-filter');
+      nav?.style.removeProperty('border-bottom');
+    }
+  });
+
+  // Mobile toggle
+  mobileBtn?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
+</script>

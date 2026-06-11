@@ -1,44 +1,259 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroCanvas from "../components/HeroCanvas.astro";
 
-const sections = [
+const works = [
   {
-    href: "/digital-journal",
-    label: "Digital Journal",
-    description: "Infrequent writings on tech, politics, and things worth sharing.",
+    label: "Software",
+    href: "/software",
+    tag: "Engineering",
+    desc: "CLI tools, browser extensions, and open-source experiments.",
   },
   {
-    href: "/projects",
-    label: "Projects",
-    description: "Software work, open source experiments, physical builds, PCBs, and 3D prints.",
+    label: "Physical Builds",
+    href: "/builds",
+    tag: "Hardware",
+    desc: "PCBs, op-amps, workbench storage, and tangible things.",
   },
   {
-    href: "/hobbies",
-    label: "Hobbies",
-    description: "Boxing, baking, and books.",
+    label: "Design Prompts",
+    href: "/design-prompts",
+    tag: "Design",
+    desc: "Visual explorations and design system experiments.",
   },
+];
+
+const stats = [
+  { value: "5+", label: "Years Engineering" },
+  { value: "∞", label: "Curiosity" },
+  { value: "3", label: "Disciplines" },
 ];
 ---
 
-<BaseLayout title="zak" description="Personal site">
-  <section class="py-20">
-    <h1 class="text-4xl font-bold text-neutral-100 mb-3">Hey, I'm Zak</h1>
-    <p class="text-neutral-400 text-lg max-w-xl mb-14">
-      Software engineer, amateur boxer, and maker of things. This is where I document the work and interests that
-      matter to me.
-    </p>
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-      {
-        sections.map(({ href, label, description }) => (
-          <a
-            href={href}
-            class="p-6 rounded-lg border border-neutral-800 hover:border-neutral-600 transition-colors group"
-          >
-            <h2 class="font-semibold text-neutral-100 group-hover:text-white mb-2 transition-colors">{label}</h2>
-            <p class="text-sm text-neutral-400">{description}</p>
-          </a>
-        ))
-      }
+<BaseLayout title="Home" fullWidth={true}>
+
+  <!-- ── HERO ────────────────────────────────────────────────────────────── -->
+  <section id="hero" class="relative min-h-[calc(100vh-4rem)] flex flex-col justify-center overflow-hidden">
+    <HeroCanvas />
+
+    <!-- Gradient vignette -->
+    <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse at 50% 60%, transparent 30%, var(--bg) 80%);"></div>
+    <!-- Bottom fade -->
+    <div class="absolute bottom-0 left-0 right-0 h-48 pointer-events-none" style="background: linear-gradient(to bottom, transparent, var(--bg));"></div>
+
+    <div class="relative z-10 max-w-5xl mx-auto w-full px-4 sm:px-6 py-20">
+      <!-- Label -->
+      <div id="hero-label" class="section-label mb-6 opacity-0">
+        Portfolio · 2024
+      </div>
+
+      <!-- Name -->
+      <div class="overflow-hidden mb-4">
+        <h1 id="hero-name" class="text-[clamp(3rem,10vw,7rem)] font-bold leading-none tracking-tight opacity-0" style="color: var(--text-primary);">
+          Zak<br /><span style="color: var(--accent);">ElSeht.</span>
+        </h1>
+      </div>
+
+      <!-- Roles -->
+      <div id="hero-roles" class="overflow-hidden mb-8 opacity-0">
+        <p class="font-mono text-[10px] sm:text-sm tracking-widest uppercase" style="color: var(--text-secondary);">
+          Design Engineer &nbsp;·&nbsp; Cloud Architect &nbsp;·&nbsp; Maker
+        </p>
+      </div>
+
+      <!-- Description -->
+      <p id="hero-desc" class="text-base sm:text-lg max-w-xl mb-12 leading-relaxed opacity-0" style="color: var(--text-secondary);">
+        I build systems that scale and experiences that resonate — from distributed cloud infrastructure to physical prototypes and pixel-perfect interfaces.
+      </p>
+
+      <!-- CTAs -->
+      <div id="hero-ctas" class="flex flex-wrap gap-4 opacity-0">
+        <a href="/projects" class="cta-primary group flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300"
+           style="background: var(--accent); color: var(--bg);">
+          View Work
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="transition-transform group-hover:translate-x-1">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <a href="/professional" class="group flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium transition-all duration-300"
+           style="border: 1px solid var(--border); color: var(--text-primary);"
+           onmouseenter="this.style.borderColor='rgba(110,231,247,0.4)'"
+           onmouseleave="this.style.borderColor='var(--border)'">
+          Get in Touch
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div id="scroll-cue" class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-0">
+      <span class="font-mono text-[10px] tracking-widest uppercase" style="color: var(--text-secondary);">Scroll</span>
+      <div class="w-px h-12 overflow-hidden" style="background: var(--border);">
+        <div id="scroll-line" class="w-full h-full" style="background: var(--accent); transform: translateY(-100%);"></div>
+      </div>
     </div>
   </section>
+
+  <!-- ── STATS ───────────────────────────────────────────────────────────── -->
+  <section class="max-w-5xl mx-auto w-full px-4 sm:px-6 py-16">
+    <div class="grid grid-cols-3 gap-6" id="stats-row">
+      {stats.map(({ value, label }) => (
+        <div class="stat-item text-center opacity-0">
+          <div class="text-3xl sm:text-4xl font-bold mb-1" style="color: var(--accent);">{value}</div>
+          <div class="font-mono text-xs tracking-widest uppercase" style="color: var(--text-secondary);">{label}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="max-w-5xl mx-auto w-full px-4 sm:px-6">
+    <hr class="hr-accent" />
+  </div>
+
+  <!-- ── WORK ────────────────────────────────────────────────────────────── -->
+  <section class="max-w-5xl mx-auto w-full px-4 sm:px-6 py-20">
+    <div class="flex items-end justify-between mb-12">
+      <div>
+        <div class="section-label mb-3 reveal">Selected Work</div>
+        <h2 class="text-3xl sm:text-4xl font-bold leading-tight reveal" style="color: var(--text-primary);">
+          What I Build
+        </h2>
+      </div>
+      <a href="/projects" class="hidden sm:flex items-center gap-2 text-sm font-medium transition-colors reveal"
+         style="color: var(--text-secondary);"
+         onmouseenter="this.style.color='var(--accent)'"
+         onmouseleave="this.style.color='var(--text-secondary)'">
+        All Projects
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      {works.map(({ label, href, tag, desc }, i) => (
+        <a href={href} class="work-card card-glass rounded-2xl p-6 block group reveal" style={`transition-delay:${i * 80}ms`}>
+          <div class="flex items-start justify-between mb-8">
+            <span class="font-mono text-[10px] tracking-widest uppercase" style="color: var(--accent);">{tag}</span>
+            <svg class="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--text-secondary);">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2" style="color: var(--text-primary);">{label}</h3>
+          <p class="text-sm leading-relaxed" style="color: var(--text-secondary);">{desc}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── ABOUT ───────────────────────────────────────────────────────────── -->
+  <section class="max-w-5xl mx-auto w-full px-4 sm:px-6 py-20">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-12 items-center">
+      <div>
+        <div class="section-label mb-4 reveal">About</div>
+        <h2 class="text-3xl sm:text-4xl font-bold mb-6 leading-tight reveal" style="color: var(--text-primary);">
+          Engineer by trade,<br />
+          <span style="color: var(--accent);">maker by nature.</span>
+        </h2>
+        <p class="text-base leading-relaxed mb-4 reveal" style="color: var(--text-secondary);">
+          I'm a software engineer with a passion for building at the intersection of design, cloud infrastructure, and physical fabrication. I believe in systems that are both technically rigorous and aesthetically deliberate.
+        </p>
+        <p class="text-base leading-relaxed reveal" style="color: var(--text-secondary);">
+          When I'm not pushing commits, I'm in the boxing gym or baking sourdough — both require the same discipline as good engineering.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        {[
+          { icon: "⬡", title: "Cloud Architecture", sub: "Distributed systems design" },
+          { icon: "◈", title: "Design Systems", sub: "Component-driven UI" },
+          { icon: "◎", title: "Hardware", sub: "PCBs & physical builds" },
+          { icon: "◇", title: "Open Source", sub: "Browser tools & CLIs" },
+        ].map(({ icon, title, sub }, i) => (
+          <div class="skill-card card-glass rounded-xl p-4 reveal" style={`transition-delay:${i * 60}ms`}>
+            <div class="text-xl mb-2" style="color: var(--accent);">{icon}</div>
+            <div class="text-sm font-semibold mb-0.5" style="color: var(--text-primary);">{title}</div>
+            <div class="text-xs" style="color: var(--text-secondary);">{sub}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── JOURNAL PREVIEW ─────────────────────────────────────────────────── -->
+  <section class="max-w-5xl mx-auto w-full px-4 sm:px-6 py-16 pb-24">
+    <div class="flex items-center gap-4 mb-8">
+      <div class="section-label reveal">Latest Writing</div>
+      <div class="flex-1 hr-accent reveal"></div>
+    </div>
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 reveal">
+      <p class="text-xl sm:text-2xl font-medium" style="color: var(--text-primary);">
+        Infrequent writings on tech, ideas, and things worth sharing.
+      </p>
+      <a href="/digital-journal"
+         class="flex-shrink-0 flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-full transition-colors"
+         style="border: 1px solid var(--border); color: var(--text-secondary);"
+         onmouseenter="this.style.borderColor='rgba(110,231,247,0.4)';this.style.color='var(--accent)'"
+         onmouseleave="this.style.borderColor='var(--border)';this.style.color='var(--text-secondary)'">
+        Read Journal →
+      </a>
+    </div>
+  </section>
+
 </BaseLayout>
+
+<script>
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
+// ── Hero entrance ─────────────────────────────────────────────────────────────
+const tl = gsap.timeline({ delay: 0.3 });
+
+tl.to('#hero-label', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 0)
+  .fromTo('#hero-name', { y: 40 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 0.15)
+  .to('#hero-roles', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 0.35)
+  .to('#hero-desc', { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 0.5)
+  .to('#hero-ctas', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 0.65)
+  .to('#scroll-cue', { opacity: 1, duration: 0.8 }, 1.2);
+
+// Scroll line animation
+gsap.to('#scroll-line', {
+  y: '100%',
+  duration: 1.2,
+  ease: 'none',
+  repeat: -1,
+  delay: 1.5,
+});
+
+// ── Stats ─────────────────────────────────────────────────────────────────────
+gsap.to('.stat-item', {
+  opacity: 1,
+  y: 0,
+  duration: 0.6,
+  stagger: 0.1,
+  ease: 'power2.out',
+  scrollTrigger: {
+    trigger: '#stats-row',
+    start: 'top 85%',
+  },
+});
+
+// ── Scroll reveals ────────────────────────────────────────────────────────────
+gsap.utils.toArray<HTMLElement>('.reveal').forEach((el) => {
+  gsap.fromTo(el,
+    { opacity: 0, y: 24 },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 0.7,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 88%',
+      },
+    }
+  );
+});
+</script>

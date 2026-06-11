@@ -1,7 +1,17 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Skill(run)",
+      "Skill(run:*)",
+      "Bash(npm run *)",
+      "Bash(Start-Process -WindowStyle Hidden -FilePath \"npm\" -ArgumentList \"run\", \"dev\", \"--\", \"--port\", \"4321\")",
+      "Bash(Start-Sleep 4)",
+      "Bash(curl -s http://localhost:4321)",
+      "Bash(Select-String \"html\")",
+      "Bash(Select-Object -First 3)",
+      "mcp__Claude_Preview__preview_start",
+      "mcp__Claude_in_Chrome__tabs_context_mcp"
     ]
   }
 }

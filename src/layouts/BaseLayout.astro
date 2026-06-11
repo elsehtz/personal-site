@@ -6,9 +6,10 @@ import Footer from "../components/Footer.astro";
 interface Props {
   title: string;
   description?: string;
+  fullWidth?: boolean;
 }
 
-const { title, description = "Personal site" } = Astro.props;
+const { title, description = "Zak ElSeht — Design & Cloud Architecture", fullWidth = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -18,13 +19,54 @@ const { title, description = "Personal site" } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{title}</title>
+    <title>{title} — Zak ElSeht</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
-  <body class="min-h-screen bg-neutral-950 text-neutral-100 flex flex-col">
+  <body class="min-h-screen flex flex-col" style="background-color: var(--bg);">
+    <!-- Custom cursor -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-ring" id="cursor-ring"></div>
+
     <Nav />
-    <main class="flex-1 max-w-4xl mx-auto w-full px-4 py-12">
+    <main class:list={["flex-1", fullWidth ? "w-full" : "max-w-5xl mx-auto w-full px-4 py-12"]}>
       <slot />
     </main>
     <Footer />
+
+    <script>
+      // Custom cursor
+      const dot = document.getElementById('cursor-dot');
+      const ring = document.getElementById('cursor-ring');
+      let mouseX = 0, mouseY = 0;
+      let ringX = 0, ringY = 0;
+
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        if (dot) {
+          dot.style.left = mouseX + 'px';
+          dot.style.top = mouseY + 'px';
+        }
+      });
+
+      function animateRing() {
+        ringX += (mouseX - ringX) * 0.12;
+        ringY += (mouseY - ringY) * 0.12;
+        if (ring) {
+          ring.style.left = ringX + 'px';
+          ring.style.top = ringY + 'px';
+        }
+        requestAnimationFrame(animateRing);
+      }
+      animateRing();
+
+      // Hover effect on interactive elements
+      const interactables = document.querySelectorAll('a, button, [data-cursor]');
+      interactables.forEach(el => {
+        el.addEventListener('mouseenter', () => ring?.classList.add('hovering'));
+        el.addEventListener('mouseleave', () => ring?.classList.remove('hovering'));
+      });
+    </script>
   </body>
 </html>

@@ -2,12 +2,17 @@
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-neutral-800 py-8">
-  <div class="max-w-4xl mx-auto px-4 flex items-center justify-between text-sm text-neutral-500">
-    <span>© {year}</span>
-    <div class="flex gap-4">
-      <a href="https://github.com" class="hover:text-neutral-300 transition-colors">GitHub</a>
-      <a href="https://www.goodreads.com" class="hover:text-neutral-300 transition-colors">Goodreads</a>
+<footer class="py-10" style="border-top: 1px solid var(--border);">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div>
+      <span class="font-semibold text-sm" style="color: var(--text-primary);">ZAK ELSEHT</span>
+      <span class="font-mono text-xs ml-3" style="color: var(--text-secondary);">© {year}</span>
+    </div>
+    <div class="flex gap-6">
+      <a href="https://github.com/elsehtz" target="_blank" rel="noopener" class="font-mono text-xs tracking-wide uppercase transition-colors" style="color: var(--text-secondary);"
+         onmouseenter="this.style.color='var(--accent)'" onmouseleave="this.style.color='var(--text-secondary)'">GitHub</a>
+      <a href="https://www.linkedin.com/in/zak-elseht" target="_blank" rel="noopener" class="font-mono text-xs tracking-wide uppercase transition-colors" style="color: var(--text-secondary);"
+         onmouseenter="this.style.color='var(--accent)'" onmouseleave="this.style.color='var(--text-secondary)'">LinkedIn</a>
     </div>
   </div>
 </footer>
