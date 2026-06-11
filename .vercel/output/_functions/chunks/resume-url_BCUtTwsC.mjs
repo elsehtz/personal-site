@@ -4,16 +4,16 @@ import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 const prerender = false;
 const s3 = new S3Client({
   region: "auto",
-  endpoint: `https://${"your_cloudflare_account_id"}.r2.cloudflarestorage.com`,
+  endpoint: `https://${undefined                             }.r2.cloudflarestorage.com`,
   credentials: {
-    accessKeyId: "your_r2_access_key_id",
-    secretAccessKey: "your_r2_secret_access_key"
+    accessKeyId: undefined                                ,
+    secretAccessKey: undefined                                    
   }
 });
 const GET = async () => {
   try {
     const command = new GetObjectCommand({
-      Bucket: "your_bucket_name",
+      Bucket: undefined                              ,
       Key: "professional resources/Zak_Resume_June.pdf",
       ResponseContentDisposition: 'attachment; filename="Zak_ElSeht_Resume.pdf"'
     });
