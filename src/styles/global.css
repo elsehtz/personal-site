@@ -20,6 +20,12 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Cross-document view transitions: fade between pages instead of a hard
+   swap, in browsers that support it */
+@view-transition {
+  navigation: auto;
+}
+
 body {
   background-color: var(--bg);
   color: var(--text-primary);

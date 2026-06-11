@@ -13,7 +13,12 @@
       "mcp__Claude_Preview__preview_start",
       "mcp__Claude_in_Chrome__tabs_context_mcp",
       "Bash(Test-Path \"C:\\\\Users\\\\temp\\\\OneDrive\\\\Desktop\\\\Projects\\\\My Site\\\\my-site\\\\.env\")",
-      "Bash(npx astro *)"
+      "Bash(npx astro *)",
+      "PowerShell(git ls-files .vercel/output | ForEach-Object { \\($_ -split '/'\\)[0..2] -join '/' } | Sort-Object -Unique | Select-Object -First 20)",
+      "Bash(node -e \"console.log\\('vite resolved to:', require\\('vite/package.json'\\).version\\)\")",
+      "Bash(npm ci *)",
+      "PowerShell(git checkout -- .vercel/output)",
+      "PowerShell(git clean -fd .vercel/output -n)"
     ]
   }
 }
