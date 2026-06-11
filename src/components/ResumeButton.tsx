@@ -9,21 +9,18 @@ export const ResumeButton: React.FC = () => {
     setError(null);
 
     try {
-      const response = await fetch('/resume.pdf');
+      const res = await fetch('/api/resume-url');
+      if (!res.ok) throw new Error('Failed to get download link');
 
-      if (!response.ok) {
-        throw new Error(`Failed to download resume: ${response.statusText}`);
-      }
+      const { url } = await res.json();
 
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
+      // Open presigned URL directly — browser handles the download
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'resume.pdf';
+      link.download = 'Zak_ElSeht_Resume.pdf';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Unknown error occurred';
       setError(message);
@@ -42,11 +39,11 @@ export const ResumeButton: React.FC = () => {
       <div>
         <p className="text-sm font-medium text-neutral-100">Resume</p>
         <p className="text-xs text-neutral-500 mt-0.5">
-          {error ? 'Failed to download' : isLoading ? 'Downloading...' : 'View or download my resume'}
+          {error ? 'Failed — try again' : isLoading ? 'Generating link…' : 'Download my resume'}
         </p>
       </div>
-      <span className={`text-neutral-500 group-hover:text-neutral-300 transition-colors text-sm ${isLoading ? 'animate-spin' : ''}`}>
-        {error ? '!' : '↗'}
+      <span className={`text-neutral-500 group-hover:text-neutral-300 transition-colors text-sm ${isLoading ? 'animate-pulse' : ''}`}>
+        {error ? '!' : '↓'}
       </span>
     </button>
   );
