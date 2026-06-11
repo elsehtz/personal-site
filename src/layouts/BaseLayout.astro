@@ -16,6 +16,14 @@ const { title, description = "Zak ElSeht — Design & Cloud Architecture", fullW
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Inline so the dark background paints before global.css loads —
+         prevents the white flash on page navigation -->
+    <style>
+      html {
+        background-color: #080a0f;
+        color-scheme: dark;
+      }
+    </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
