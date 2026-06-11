@@ -1,11 +1,9 @@
 import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
-import vercel from "@astrojs/vercel/serverless";
+import vercel from "@astrojs/vercel";
 
 export default defineConfig({
-  output: "hybrid",
-  adapter: vercel({
-    webAnalytics: { enabled: true },
-  }),
+  output: "static",
+  adapter: vercel(),
   integrations: [react()],
 });
