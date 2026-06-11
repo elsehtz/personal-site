@@ -3,21 +3,24 @@ import type { APIRoute } from "astro";
 export const prerender = false;
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { getSecret } from "astro:env/server";
 
 export const GET: APIRoute = async () => {
   try {
 
+    // getSecret (not import.meta.env): Vite inlines import.meta.env at build
+    // time, so Vercel runtime env vars would be baked in as `undefined`.
     const s3 = new S3Client({
       region: "auto",
-      endpoint: `https://${import.meta.env.VITE_R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+      endpoint: `https://${getSecret("R2_ACCOUNT_ID")}.r2.cloudflarestorage.com`,
       credentials: {
-        accessKeyId: import.meta.env.VITE_R2_ACCESS_KEY_ID!,
-        secretAccessKey: import.meta.env.VITE_R2_SECRET_ACCESS_KEY!,
+        accessKeyId: getSecret("R2_ACCESS_KEY_ID")!,
+        secretAccessKey: getSecret("R2_SECRET_ACCESS_KEY")!,
       },
     });
 
     const command = new GetObjectCommand({
-      Bucket: import.meta.env.VITE_R2_BUCKET_NAME!,
+      Bucket: getSecret("R2_BUCKET_NAME")!,
       Key: "professional resources/Zak_Resume_June.pdf",
       ResponseContentDisposition: 'attachment; filename="Zak_ElSeht_Resume.pdf"',
     });
