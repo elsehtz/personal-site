@@ -9,9 +9,7 @@ export const ResumeButton: React.FC = () => {
     setError(null);
 
     try {
-      // Replace with your actual Cloudflare R2 URL
-      const R2_URL = import.meta.env.PUBLIC_R2_RESUME_URL || 'https://a74ae45819dbee2dadbbc92b1d219cf1.r2.cloudflarestorage.com/professional resources/Zak_Resume_June.pdf';
-      const response = await fetch(R2_URL);
+      const response = await fetch('/resume.pdf');
 
       if (!response.ok) {
         throw new Error(`Failed to download resume: ${response.statusText}`);
