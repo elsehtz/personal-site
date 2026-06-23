@@ -1,0 +1,29 @@
+---
+---
+
+# LLM Storage Notes
+
+Large Language Model training sets are stored as massive, tokenized text or data files in object storage, while model weights are stored as serialized numerical matrices in checkpoint files on disk. During operation, both are loaded into high-speed memory.
+
+## Training Set Storage
+
+- Raw data is kept in distributed object storage (Amazon S3, Google Cloud Storage) as JSON, text, or database dumps.
+- Raw data is filtered and tokenized into numerical IDs using pipelines like Apache Spark.
+- Final token streams are stored in efficient binary serialization formats such as Parquet, Arrow, or memory-mapped files.
+- Dataset sizes are typically petabytes during ingestion and shrink to hundreds of gigabytes or terabytes after deduplication and tokenization.
+
+## Model Weight Storage
+
+- Model weights are large arrays of floating-point parameters representing learned network connections.
+- Idle weights are saved on SSDs as serialized files: PyTorch tensors (.pt/.pth), Safetensors, or GGUF.
+- Storage size depends on precision and parameter count; a 70B parameter model at 16-bit precision requires about 140 GB.
+- Training uses checkpoints: GPU weights are copied from VRAM to CPU memory and then to local SSDs to preserve progress.
+
+## Runtime Memory Use
+
+- Disks are too slow for real-time weight access, so active model weights are loaded into GPU VRAM during training and inference.
+- Training datasets stream from SSDs into CPU RAM and are chunked out to GPUs to avoid data bottlenecks.
+- Both weights and training data reside in high-speed memory during operation.
+
+If you'd like to dive deeper, ask about open-source weights, quantization, or Retrieval-Augmented Generation (RAG).
+

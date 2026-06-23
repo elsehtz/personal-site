@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>STRIDE — THC Running Gels · Business Roadmap</title>
+<style>
+:root{
+  --bg:#0a0f0c; --bg2:#0f1812; --ink:#eafff1; --mut:#8fb6a0;
+  --green:#2bff88; --green2:#13c46a; --orange:#ff8a3d; --amber:#ffd166;
+  --card:#10211a; --line:#1d3a2c; --red:#ff5d6c;
+  --font:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:radial-gradient(1200px 700px at 80% -10%, #11271c 0%, var(--bg) 55%) fixed;
+  color:var(--ink); font-family:var(--font); overflow:hidden;
+}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{
+  position:absolute;inset:0;display:none;flex-direction:column;
+  padding:6vh 7vw;opacity:0;transition:opacity .5s ease;
+  overflow:auto;
+}
+.slide.active{display:flex;opacity:1}
+.kicker{color:var(--green);font-weight:700;letter-spacing:.22em;text-transform:uppercase;font-size:.8rem;margin-bottom:.6rem}
+h1{font-size:clamp(2rem,5vw,4.2rem);line-height:1.02;font-weight:800;letter-spacing:-.02em}
+h2{font-size:clamp(1.6rem,3.4vw,2.8rem);font-weight:800;letter-spacing:-.01em;margin-bottom:1.4rem}
+h2 .bar{display:inline-block;width:.5em;height:.5em;background:var(--green);border-radius:3px;margin-right:.4em;transform:rotate(45deg)}
+p,li{color:var(--ink);font-size:clamp(.95rem,1.35vw,1.15rem);line-height:1.55}
+.mut{color:var(--mut)}
+.grid{display:grid;gap:18px}
+.card{background:linear-gradient(180deg,var(--card),#0d1b15);border:1px solid var(--line);border-radius:16px;padding:20px 22px}
+.card h3{font-size:1.05rem;color:var(--green);margin-bottom:.45rem;letter-spacing:.01em}
+.tag{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.25em .6em;border-radius:999px;border:1px solid var(--line);color:var(--amber)}
+.big{font-size:clamp(2.2rem,4vw,3.4rem);font-weight:800;color:var(--orange);line-height:1}
+.reveal{opacity:0;transform:translateY(22px);transition:all .6s cubic-bezier(.2,.7,.2,1)}
+.slide.active .reveal{opacity:1;transform:none}
+.slide.active .reveal:nth-child(2){transition-delay:.08s}
+.slide.active .reveal:nth-child(3){transition-delay:.16s}
+.slide.active .reveal:nth-child(4){transition-delay:.24s}
+.slide.active .reveal:nth-child(5){transition-delay:.32s}
+.slide.active .reveal:nth-child(6){transition-delay:.40s}
+
+/* nav */
+#bar{position:fixed;left:0;top:0;height:4px;background:linear-gradient(90deg,var(--green),var(--orange));width:0;z-index:50;transition:width .4s}
+#hud{position:fixed;right:18px;bottom:16px;display:flex;gap:6px;z-index:50;align-items:center}
+#hud button{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:10px;width:40px;height:36px;font-size:1rem;cursor:pointer}
+#hud button:hover{border-color:var(--green)}
+#cnt{font-size:.8rem;color:var(--mut);min-width:54px;text-align:center}
+.dots{position:fixed;left:18px;bottom:16px;display:flex;gap:7px;z-index:50}
+.dots i{width:9px;height:9px;border-radius:50%;background:#22402f;cursor:pointer;transition:.3s}
+.dots i.on{background:var(--green);transform:scale(1.25)}
+
+/* title art */
+.hero{display:flex;flex:1;align-items:center;justify-content:space-between;gap:4vw;flex-wrap:wrap}
+.logo{font-size:clamp(3rem,9vw,7rem);font-weight:900;letter-spacing:-.04em;background:linear-gradient(90deg,var(--green),var(--amber),var(--orange));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{font-size:clamp(1.1rem,2vw,1.6rem);color:var(--mut);margin-top:.4rem}
+.pill{margin-top:1.6rem;display:flex;gap:10px;flex-wrap:wrap}
+.pill span{border:1px solid var(--line);border-radius:999px;padding:.5em 1em;font-size:.85rem;color:var(--ink)}
+
+/* runner animation */
+.scene{width:min(40vw,440px);height:300px;position:relative}
+.gel{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:120px;height:200px;border-radius:60px 60px 24px 24px;
+  background:linear-gradient(180deg,#15352440,#0c1a13);border:2px solid var(--green);box-shadow:0 0 50px #2bff8840;overflow:hidden}
+.gel .fill{position:absolute;bottom:0;left:0;right:0;height:62%;background:linear-gradient(180deg,var(--green2),var(--green));opacity:.85;
+  animation:slosh 3s ease-in-out infinite}
+.gel .lf{position:absolute;top:14px;left:50%;transform:translateX(-50%);font-weight:900;color:#06170e;font-size:.8rem;z-index:3;letter-spacing:.1em}
+@keyframes slosh{0%,100%{height:58%}50%{height:66%}}
+.bubble{position:absolute;bottom:10%;width:10px;height:10px;border-radius:50%;background:#eafff1aa;animation:rise 2.6s linear infinite}
+.dose{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-weight:900;color:#06170e;z-index:4;font-size:1.6rem}
+@keyframes rise{0%{transform:translateY(0);opacity:0}20%{opacity:1}100%{transform:translateY(-160px);opacity:0}}
+
+/* map */
+svg .state{fill:#12241a;stroke:#1d3a2c;stroke-width:1.4;transition:.6s}
+svg .state.on{fill:#163a26;stroke:var(--green)}
+.route{stroke:var(--orange);stroke-width:3;fill:none;stroke-dasharray:8 8;stroke-linecap:round;
+  stroke-dashoffset:600;animation:dash 6s linear infinite}
+@keyframes dash{to{stroke-dashoffset:0}}
+
+/* timeline */
+.tl{position:relative;margin-top:10px}
+.tl:before{content:"";position:absolute;left:14px;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--green),var(--orange))}
+.tl .row{position:relative;padding:0 0 22px 46px}
+.tl .row b{position:absolute;left:5px;top:2px;width:22px;height:22px;border-radius:50%;background:var(--bg);border:3px solid var(--green);display:block}
+.tl .ph{color:var(--amber);font-weight:700;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase}
+
+table{width:100%;border-collapse:collapse;font-size:clamp(.82rem,1.15vw,1rem)}
+th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line)}
+th{color:var(--green);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
+td b{color:var(--amber)}
+.note{font-size:.82rem;color:var(--mut);margin-top:.6rem}
+.warn{border-left:3px solid var(--red);background:#1c0f12;padding:14px 16px;border-radius:10px}
+.warn b{color:var(--red)}
+ul{margin-left:1.1em}li{margin:.3em 0}
+.flex{display:flex;gap:18px;flex-wrap:wrap}
+.flex>.card{flex:1;min-width:220px}
+.foot{margin-top:auto;font-size:.72rem;color:#5c7a68;padding-top:14px}
+a{color:var(--green)}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<div id="deck"></div>
+<div class="dots" id="dots"></div>
+<div id="hud"><button onclick="go(-1)">‹</button><div id="cnt"></div><button onclick="go(1)">›</button></div>
+
+<!-- ================= SLIDES ================= -->
+<template id="slides">
+
+<!-- 1 TITLE -->
+<section class="slide">
+  <div class="kicker reveal">Business Roadmap · Confidential Draft · June 2026</div>
+  <div class="hero">
+    <div>
+      <div class="logo reveal">STRIDE</div>
+      <div class="sub reveal">THC-Infused Running Gels — fast-onset endurance fuel</div>
+      <div class="pill reveal">
+        <span>Launch market: New Jersey</span><span>Then: NY · MA</span><span>State-licensed cannabis</span>
+      </div>
+      <p class="reveal" style="margin-top:1.6rem;max-width:540px;color:var(--mut)">
+        A phased plan to license, manufacture and sell a precisely-dosed, nano-emulsified
+        THC running gel — built around the legal reality that cannabis is a closed,
+        state-by-state market.
+      </p>
+    </div>
+    <div class="scene reveal">
+      <div class="gel">
+        <div class="lf">STRIDE</div>
+        <div class="fill"></div>
+        <div class="dose">10mg</div>
+        <span class="bubble" style="left:30%;animation-delay:.2s"></span>
+        <span class="bubble" style="left:55%;animation-delay:1s"></span>
+        <span class="bubble" style="left:70%;animation-delay:1.8s"></span>
+      </div>
+    </div>
+  </div>
+  <div class="foot reveal">Use ← / → arrows or the buttons to navigate · 14 slides</div>
+</section>
+
+<!-- 2 OPPORTUNITY -->
+<section class="slide">
+  <h2 class="reveal"><span class="bar"></span>The opportunity</h2>
+  <div class="grid reveal" style="grid-template-columns:repeat(3,1fr)">
+    <div class="card"><h3>A product gap</h3><p>Endurance athletes already dose mid-run gels for carbs & caffeine. No mainstream brand pairs that ritual with a <b>low, precise THC dose</b> for focus, pain and recovery.</p></div>
+    <div class="card"><h3>Wellness tailwind</h3><p>Cannabis + fitness is one of the fastest-growing usage occasions. Microdosing (2.5–10mg) is the dominant trend — exactly the format a gel suits.</p></div>
+    <div class="card"><h3>Format advantage</h3><p>A single-serve sachet is portable, shelf-stable, and naturally dose-controlled — far easier to make compliant than gummies that "appeal to children."</p></div>
+  </div>
+  <div class="flex reveal" style="margin-top:20px">
+    <div class="card"><div class="big" data-count="10">0</div><p class="mut">mg THC per serving — the legal ceiling in NJ</p></div>
+    <div class="card"><div class="big" data-count="15">0</div><p class="mut">minute onset with nano-emulsion vs. 60+ for oil edibles</p></div>
+    <div class="card"><div class="big" data-count="3">0</div><p class="mut">priority launch states on the East Coast: NJ → NY → MA</p></div>
+  </div>
+</section>
+
+<!-- 5 PRODUCT -->
+<section class="slide">
+  <h2 class="reveal"><span class="bar"></span>The product & the science</h2>
+  <div class="flex reveal">
+    <div class="card"><h3>Fast-onset is the whole pitch</h3><p>Raw THC distillate is oil-soluble — slow and unpredictable in a water-based gel. <b>Nano-emulsification</b> shrinks THC into 20–600nm droplets that disperse in water and absorb in ~15 minutes. Perfect for mid-run timing.</p></div>
+    <div class="card"><h3>Formulation</h3><p>Carbohydrate energy base (maltodextrin/fructose) + electrolytes + nano-THC emulsion, dosed to <b>10mg per single-serve sachet</b>. Optional caffeine / CBD ratios as line extensions.</p></div>
+    <div class="card"><h3>Compliance by design</h3><p>Single-serve sachet, opaque + child-resistant + tamper-evident packaging, "This is a cannabis product" mark, no kid-appealing shapes. Lab-tested every batch.</p></div>
+  </div>
+  <div class="card reveal" style="margin-top:18px"><h3>Process flow</h3>
+  <p style="font-size:1.05rem">Licensed in-state distillate → decarb/standardize → <b>rotor-stator pre-mix</b> → <b>ultrasonic homogenizer</b> (nano-emulsion) → blend into gel base → <b>depositing/filling</b> into sachets → seal → batch lab test → label & case → distribute to in-state dispensaries.</p></div>
+</section>
+
+<!-- 6 LICENSING -->
+<section class="slide">
+  <h2 class="reveal"><span class="bar"></span>Licensing breakdown</h2>
+  <div class="reveal" style="overflow:auto">
+  <table>
+    <tr><th>State</th><th>License (mfr/processor)</th><th>Application</th><th>Ongoing</th><th>Key residency / rule</th><th>Timeline</th></tr>
+    <tr><td><b>New Jersey</b></td><td>Class 2 Cannabis Manufacturer</td><td>$10,000 (annual)</td><td>$5,000 renewal</td><td>1+ "significantly involved" person resident 2+ yrs; all owners 21+</td><td>Conditional 4–12 wks; annual 12–28 wks</td></tr>
+    <tr><td><b>New York</b></td><td>Adult-Use Processor</td><td>~$2,000 (conditional)</td><td>Renew every 2 yrs</td><td>NY-incorporated, NY main office, NY-resident ownership share</td><td>Portal-based; varies</td></tr>
+    <tr><td><b>Massachusetts</b></td><td>Product Manufacturer</td><td>$1,500</td><td>$10,000 / yr</td><td>Host Community Agreement w/ municipality; single mfr license type</td><td>Multi-stage CCC review</td></tr>
+  </table>
+  </div>
+  <div class="flex reveal" style="margin-top:18px">
+    <div class="card"><h3>The real gatekeeper isn't the fee</h3><p>It's <b>municipal approval</b>. The town must allow (and zone for) cannabis manufacturing and sign off. Securing a compliant site + local approval is the long pole — start here.</p></div>
+    <div class="card"><h3>Conditional → annual</h3><p>Use NJ's conditional license to lock status cheaply, then you have ~120 days to secure premises, municipal approval and convert. Don't sign a long lease before zoning is confirmed.</p></div>
+  </div>
+  <p class="note reveal">Fees are state license fees only — exclude legal, application prep, security plans, and local permit costs.</p>
+</section>
+
+<!-- 7 MANUFACTURING -->
+<section class="slide">
+  <h2 class="reveal"><span class="bar"></span>Manufacturing: sourcing the THC</h2>
+  <div class="warn reveal" style="max-width:920px"><p><b>You can't just "buy THC in bulk" on the open market.</b> In a closed state market, your inputs must come from <b>in-state licensed cultivators / processors</b>, tracked seed-to-sale (e.g. METRC). No importing, no online wholesale distillate from out of state.</p></div>
+  <div class="flex reveal" style="margin-top:18px">
+    <div class="card"><h3>How you actually get it</h3><p>Establish supply contracts with licensed in-state cultivators for biomass, or buy finished <b>distillate/oil from in-state licensed processors</b>. In NY the processor model often processes a cultivator's cannabis without taking title — structure matters.</p></div>
+    <div class="card"><h3>Repeat per state</h3><p>NJ product is made from NJ cannabis; NY from NY; MA from MA. A separate supply relationship exists in every market you enter.</p></div>
+    <div class="card"><h3>Quality control</h3><p>Standardize incoming distillate potency, then dose to spec. Every finished batch goes to a state-licensed testing lab before it can be sold.</p></div>
+  </div>
+</section>
+
+<!-- 8 FACILITY & EQUIPMENT -->
+<section class="slide">
+  <h2 class="reveal"><span class="bar"></span>Facility, equipment & space</h2>
+  <div class="flex reveal">
+    <div class="card"><h3>Space — start lean</h3>
+      <p>A craft launch needs roughly <b>2,500–5,000 sq ft</b>: food-grade production room, secure THC storage/vault, packaging area, QA bench, and office. Scale-up facilities run 10,000–25,000 sq ft (ex-food-processing sites are ideal).</p></div>
+    <div class="card"><h3>Buildout</h3>
+      <p>Food-safety finishes, HVAC/ventilation, sealed surfaces, plus mandatory <b>security</b>: cameras, alarms, access control, and a vault. Budget ~$100k+ for compliant buildout.</p></div>
+  </div>
+  <div class="grid reveal" style="grid-template-columns:repeat(2,1fr);margin-top:18px">
+    <div class="card"><h3>Core production equipment</h3>
+      <ul>
+        <li>Rotor-stator mixer (pre-emulsion)</li>
+        <li>Ultrasonic homogenizer / nano-emulsification system</li>
+        <li>Jacketed heating/mixing kettles</li>
+        <li>Volumetric depositor / sachet filler & sealer</li>
+        <li>Scales, viscometer, lab/QA glassware</li>
+      </ul></div>
+    <div class="card"><h3>Compliance & ops</h3>
+      <ul>
+        <li>METRC-integrated seed-to-sale software</li>
+        <li>Vault / locked cannabis storage</li>
+        <li>Surveillance + alarm + access control</li>
+        <li>Child-resistant, opaque packaging line</li>
+        <li>Cold/dry storage, sanitation station</li>
+      </ul></div>
+  </div>
+</section>
+
+<!-- 9 BUDGET -->
+<section class="slide">
+  <h2 class="reveal"><span class="bar"></span>Budget — single-state launch (NJ)</h2>
+  <div class="flex reveal">
+    <div class="card" style="flex:1.3">
+      <h3>Startup capital — realistic range</h3>
+      <div id="budget"></div>
+      <p class="note">Lean craft launch ≈ <b>$400k–$750k all-in</b>. A full extraction-grade lab pushes $1M+. Most edibles startups model ~$550k CAPEX with ~2-year breakeven.</p>
+    </div>
+    <div class="card" style="flex:1">
+      <h3>Monthly working capital</h3>
+      <ul>
+        <li>Payroll: <b>$40k–$80k</b></li>
+        <li>Input inventory (distillate/biomass): <b>$75k–$150k</b> initial</li>
+        <li>Batch lab testing, utilities, insurance</li>
+        <li>Marketing & dispensary placement</li>
+      </ul>
+      <p class="note">Hold 6–12 months of runway. Cannabis lending is scarce and expensive.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 10 ROADMAP -->
+<section class="slide">
+  <h2 class="reveal"><span class="bar"></span>Roadmap & timeline</h2>
+  <div class="tl reveal" style="max-width:980px">
+    <div class="row"><b></b><div class="ph">Phase 0 · Months 0–2</div><p>Form entity, raise/commit capital, retain a NJ cannabis attorney, finalize brand & formulation concept, build financial model.</p></div>
+    <div class="row"><b></b><div class="ph">Phase 1 · Months 2–5</div><p>Identify cannabis-friendly municipality, secure site option + zoning/Host approval, file NJ conditional Class 2 application.</p></div>
+    <div class="row"><b></b><div class="ph">Phase 2 · Months 5–10</div><p>Sign lease, buildout & security install, buy equipment, line up in-state distillate supply, convert to annual license, R&D the gel + stability/lab testing.</p></div>
+    <div class="row"><b></b><div class="ph">Phase 3 · Months 10–14</div><p>First compliant batches, packaging/labeling sign-off, onboard dispensary accounts, NJ market launch.</p></div>
+    <div class="row"><b></b><div class="ph">Phase 4 · Year 2+</div><p>Stabilize NJ unit economics, then replicate the entire stack in NY, then MA.</p></div>
+  </div>
+</section>
+
+
+</template>
+
+<script>
+const deck=document.getElementById('deck');
+const tpl=document.getElementById('slides').content;
+deck.append(...tpl.cloneNode(true).children);
+const slides=[...deck.querySelectorAll('.slide')];
+const dots=document.getElementById('dots');
+slides.forEach((s,i)=>{const d=document.createElement('i');d.onclick=()=>show(i);dots.append(d)});
+let cur=0;
+function show(n){
+  cur=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,i)=>s.classList.toggle('active',i===cur));
+  [...dots.children].forEach((d,i)=>d.classList.toggle('on',i===cur));
+  document.getElementById('bar').style.width=((cur+1)/slides.length*100)+'%';
+  document.getElementById('cnt').textContent=(cur+1)+' / '+slides.length;
+  animate(slides[cur]);
+}
+function go(d){show(cur+d)}
+addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')go(1);if(e.key==='ArrowLeft')go(-1)});
+
+// number counters + budget bars
+function animate(sl){
+  sl.querySelectorAll('[data-count]').forEach(el=>{
+    const t=+el.dataset.count;let n=0;const step=Math.max(1,t/40);
+    clearInterval(el._i);el._i=setInterval(()=>{n+=step;if(n>=t){n=t;clearInterval(el._i)}el.textContent=Math.round(n)},22);
+  });
+  const b=sl.querySelector('#budget');
+  if(b&&!b.dataset.done){b.dataset.done=1;
+    const rows=[['State license + legal/app prep','$30k–$80k',38],
+      ['Facility buildout (food + security)','$100k–$200k',70],
+      ['Equipment (emulsion, depositor, line)','$150k–$300k',100],
+      ['Initial inventory / distillate','$75k–$150k',55],
+      ['Working capital & contingency','$100k–$200k',70]];
+    b.innerHTML=rows.map(r=>`<div style="margin:10px 0">
+      <div style="display:flex;justify-content:space-between;font-size:.9rem"><span>${r[0]}</span><b style="color:var(--amber)">${r[1]}</b></div>
+      <div style="height:9px;background:#0c1a13;border-radius:6px;overflow:hidden;margin-top:5px">
+        <div style="height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--orange));border-radius:6px;transition:width 1s ease" data-w="${r[2]}"></div></div></div>`).join('');
+    setTimeout(()=>b.querySelectorAll('[data-w]').forEach(x=>x.style.width=x.dataset.w+'%'),120);
+  }
+}
+show(0);
+</script>
+</body>
+</html>
