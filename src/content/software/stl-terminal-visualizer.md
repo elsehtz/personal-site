@@ -25,7 +25,3 @@ Immediately, we have to distinguish between two main methods for propagating 3-d
 Before I began working out the math, I had to consider how I was going to print the vectors to screen. I really wanted to focus on keeping the stereotypical-coder-vibe so that meant figuring out which ASCII characters I'd be using. Lacking the vision and artistry of an ioccc participant, I chose to compose the results from the ascii braille set; with the hopes of maximizing detail.
 
 
-
-
-
-[Here's the repo for it](https://github.com/elsehtz/g-drive-editor-theme-extension) It's as it sounds, a chrome extension to add a less-intense color theme for fellow dark-mode enthusiasts
