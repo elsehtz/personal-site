@@ -1,4 +1,11 @@
 {
   "framework": "astro",
-  "buildCommand": "npm run build"
+  "buildCommand": "npm run build",
+  "redirects": [
+    {
+      "source": "/((?!maintenance.html|favicon.svg).*)",
+      "destination": "/maintenance.html",
+      "permanent": false
+    }
+  ]
 }

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Back soon — Zak ElSeht</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #080a0f;
+      --surface: #0d1117;
+      --accent: #6ee7f7;
+      --accent-dim: #3bb8cc;
+      --text-primary: #f0f4f8;
+      --text-secondary: #7a8799;
+      --border: rgba(255, 255, 255, 0.07);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: "Space Grotesk", system-ui, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 1.5rem;
+      overflow: hidden;
+      position: relative;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(110, 231, 247, 0.06), transparent 60%),
+        radial-gradient(circle at 50% 100%, rgba(59, 184, 204, 0.05), transparent 55%);
+      pointer-events: none;
+    }
+    .card {
+      position: relative;
+      max-width: 34rem;
+      width: 100%;
+      background: rgba(13, 17, 23, 0.7);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 3rem 2.5rem;
+      text-align: center;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 60px rgba(110, 231, 247, 0.04);
+    }
+    .label {
+      font-family: "Space Mono", monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin-bottom: 1.75rem;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(0.7); }
+    }
+    h1 {
+      font-size: clamp(1.9rem, 6vw, 2.6rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1.1rem;
+      background: linear-gradient(120deg, var(--text-primary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p {
+      color: var(--text-secondary);
+      font-size: 1.02rem;
+      line-height: 1.65;
+      margin: 0 auto 1rem;
+      max-width: 28rem;
+    }
+    .hr {
+      height: 1px;
+      border: 0;
+      margin: 2rem auto 1.5rem;
+      background: linear-gradient(90deg, transparent, var(--accent-dim), transparent);
+      opacity: 0.5;
+    }
+    .signoff {
+      font-family: "Space Mono", monospace;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    .signoff strong { color: var(--text-primary); font-weight: 700; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <span class="label"><span class="dot"></span>Under construction</span>
+    <h1>My Apologies.</h1>
+    <p>
+      I'm overhauling a batch of projects and giving the interface a rework.
+      The site is paused for a little while so I can put it back together properly.
+    </p>
+    <p>Thanks for stopping by — check back soon.</p>
+    <hr class="hr" />
+    <p class="signoff">— <strong>Zak ElSeht</strong></p>
+  </main>
+</body>
+</html>
