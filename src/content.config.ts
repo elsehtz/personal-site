@@ -23,6 +23,8 @@ const software = defineCollection({
     live: z.string().url().optional(),
     date: z.coerce.date(),
     featured: z.boolean().default(false),
+    draft: z.boolean().default(false),
+    order: z.number().optional(),
   }),
 });
 
@@ -36,6 +38,8 @@ const builds = defineCollection({
     images: z.array(z.string()).default([]),
     status: z.enum(["completed", "in-progress", "planned"]).default("completed"),
     password: z.string().optional(),
+    draft: z.boolean().default(false),
+    order: z.number().optional(),
   }),
 });
 
@@ -62,6 +66,7 @@ const designPrompts = defineCollection({
     tags: z.array(z.string()).default([]),
     tool: z.string().optional(),
     draft: z.boolean().default(false),
+    order: z.number().optional(),
   }),
 });
 

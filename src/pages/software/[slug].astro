@@ -3,7 +3,7 @@ import { getCollection, render } from "astro:content";
 import ContentLayout from "../../layouts/ContentLayout.astro";
 
 export async function getStaticPaths() {
-  const projects = await getCollection("software");
+  const projects = await getCollection("software", ({ data }) => !data.draft);
   return projects.map((project) => ({ params: { slug: project.id }, props: { project } }));
 }
 

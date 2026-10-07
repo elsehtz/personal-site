@@ -2,7 +2,7 @@
 title: "Making an Op-Amp: a needless exercise?"
 description: "Do I already have plenty of ICs ready to use? Yes. Is this overcomplicating things? Probably. Is there a practical advantage to this? Quite the opposite. Is this a desperate display of free will? Kinda"
 category: "DIY"
-date: 2026-03-18
+date: 2026-03-25
 status: "completed"
 draft: false
 ---

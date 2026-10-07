@@ -1,7 +1,7 @@
 ---
 title: "Our attention-span and our capacity to focus have never been so manipulated"
 description: "A quick rant about how capacity to focus is being strategically reconstructed for the sole purpose of short-term monetary gain"
-date: 2026-03-17
+date: 2026-03-25
 tags: ["other"]        # options: "tech", "political", "other"
 draft: true
 ---

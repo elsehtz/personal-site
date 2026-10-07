@@ -4,7 +4,7 @@ import ContentLayout from "../../layouts/ContentLayout.astro";
 import PasswordGate from "../../components/PasswordGate.astro";
 
 export async function getStaticPaths() {
-  const builds = await getCollection("builds");
+  const builds = await getCollection("builds", ({ data }) => !data.draft);
   return builds.map((build) => ({ params: { slug: build.id }, props: { build } }));
 }
 
