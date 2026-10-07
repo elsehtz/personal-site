@@ -25,6 +25,7 @@ const software = defineCollection({
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
     order: z.number().optional(),
+    updated: z.coerce.date().optional(), // most recent update; shown on /projects cards instead of `date`
   }),
 });
 
@@ -40,6 +41,7 @@ const builds = defineCollection({
     password: z.string().optional(),
     draft: z.boolean().default(false),
     order: z.number().optional(),
+    updated: z.coerce.date().optional(), // most recent update; shown on /projects cards instead of `date`
   }),
 });
 
@@ -67,6 +69,7 @@ const designPrompts = defineCollection({
     tool: z.string().optional(),
     draft: z.boolean().default(false),
     order: z.number().optional(),
+    updated: z.coerce.date().optional(), // most recent update; shown on /projects cards instead of `date`
   }),
 });
 

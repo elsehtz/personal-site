@@ -26,7 +26,7 @@ const softwareItems = allProjects
     title: p.data.title,
     description: p.data.description,
     href: `/software/${p.id}`,
-    date: p.data.date,
+    date: p.data.updated ?? p.data.date,
     order: p.data.order,
     tags: p.data.tags,
     meta: undefined,
@@ -39,7 +39,7 @@ const buildItems = allBuilds
     title: b.data.title,
     description: b.data.description,
     href: `/builds/${b.id}`,
-    date: b.data.date,
+    date: b.data.updated ?? b.data.date,
     order: b.data.order,
     tags: b.data.status !== "completed" ? [b.data.status] : [],
     meta: categoryLabels[b.data.category] ?? b.data.category,
@@ -52,13 +52,13 @@ const designPromptItems = allDesignPrompts
     title: p.data.title,
     description: p.data.description,
     href: `/design-prompts/${p.id}`,
-    date: p.data.date,
+    date: p.data.updated ?? p.data.date,
     order: p.data.order,
     tags: p.data.tags,
     meta: p.data.tool,
   }));
 
-// Items with an `order` in frontmatter are pinned to the top (ascending), the rest follow by date
+// Items with an `order` in frontmatter are pinned to the top (ascending), the rest follow by most recent update
 const allItems = [...softwareItems, ...buildItems, ...designPromptItems].sort((a, b) => {
   const ao = a.order ?? Infinity;
   const bo = b.order ?? Infinity;
