@@ -140,3 +140,11 @@ body::before {
 @media (max-width: 640px) {
   .cursor-dot, .cursor-ring { display: none; }
 }
+
+/* KaTeX display math: scroll wide equations instead of overflowing on mobile */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.25rem 0;
+}
+.katex-display > .katex { color: var(--text-primary); }
