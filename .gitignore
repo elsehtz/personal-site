@@ -18,3 +18,5 @@ node_modules/
 # Vercel
 .vercel
 .claude/worktrees/
+
+esc_joystick_control/

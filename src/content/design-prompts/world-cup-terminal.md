@@ -2,7 +2,7 @@
 title: "World Cup - Terminal Style"
 description: "A quick mockup of a world cup bracket-and-information site, stylized to the theme of a linux terminal"
 category: ""
-date: 2026-06-21
+date: 2026-06-23
 order: 3
 status: ""
 github: ""
