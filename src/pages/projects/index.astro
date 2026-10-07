@@ -3,8 +3,8 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Card from "../../components/Card.astro";
 
-const allProjects = await getCollection("software");
-const allBuilds = await getCollection("builds");
+const allProjects = await getCollection("software", ({ data }) => !data.draft);
+const allBuilds = await getCollection("builds", ({ data }) => !data.draft);
 const allDesignPrompts = await getCollection("designPrompts", ({ data }) => !data.draft);
 
 const categoryLabels: Record<string, string> = {
@@ -27,6 +27,7 @@ const softwareItems = allProjects
     description: p.data.description,
     href: `/software/${p.id}`,
     date: p.data.date,
+    order: p.data.order,
     tags: p.data.tags,
     meta: undefined,
   }));
@@ -39,6 +40,7 @@ const buildItems = allBuilds
     description: b.data.description,
     href: `/builds/${b.id}`,
     date: b.data.date,
+    order: b.data.order,
     tags: b.data.status !== "completed" ? [b.data.status] : [],
     meta: categoryLabels[b.data.category] ?? b.data.category,
   }));
@@ -51,13 +53,18 @@ const designPromptItems = allDesignPrompts
     description: p.data.description,
     href: `/design-prompts/${p.id}`,
     date: p.data.date,
+    order: p.data.order,
     tags: p.data.tags,
     meta: p.data.tool,
   }));
 
-const allItems = [...softwareItems, ...buildItems, ...designPromptItems].sort(
-  (a, b) => b.date.getTime() - a.date.getTime()
-);
+// Items with an `order` in frontmatter are pinned to the top (ascending), the rest follow by date
+const allItems = [...softwareItems, ...buildItems, ...designPromptItems].sort((a, b) => {
+  const ao = a.order ?? Infinity;
+  const bo = b.order ?? Infinity;
+  if (ao !== bo) return ao - bo;
+  return b.date.getTime() - a.date.getTime();
+});
 ---
 
 <BaseLayout title="Projects" description="Software projects, physical builds, and experiments.">

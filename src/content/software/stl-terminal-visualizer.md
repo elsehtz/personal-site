@@ -3,6 +3,7 @@ title: "Visualizing STL files inside the terminal"
 description: "Visual projection options and cool maths behind it"
 category: "Educational"
 date: 2026-06-22
+order: 2
 status: "in-progress"
 # github: "https://github.com/elsehtz/"
 draft: false

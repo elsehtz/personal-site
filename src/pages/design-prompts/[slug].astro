@@ -3,7 +3,7 @@ import { getCollection, render } from "astro:content";
 import ContentLayout from "../../layouts/ContentLayout.astro";
 
 export async function getStaticPaths() {
-  const prompts = await getCollection("designPrompts");
+  const prompts = await getCollection("designPrompts", ({ data }) => !data.draft);
   return prompts.map((prompt) => ({ params: { slug: prompt.id }, props: { prompt } }));
 }
 

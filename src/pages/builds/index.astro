@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Card from "../../components/Card.astro";
 
-const allBuilds = await getCollection("builds");
+const allBuilds = await getCollection("builds", ({ data }) => !data.draft);
 const builds = allBuilds.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
 const categories = ["EDA", "3dprint", "circuit", "DIY", "woodworking"] as const;
