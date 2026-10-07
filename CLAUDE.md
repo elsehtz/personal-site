@@ -70,3 +70,9 @@ When adding a piece of content: drop a `.md` file in the right `src/content/<col
 - Feature work (new pages, animations, redesigns) tends to happen on isolated `claude/*` branches/worktrees rather than directly on `main` — keep that pattern for anything multi-file or visually risky.
 - Small content-only additions (new post, new build log entry, tweaking an existing entry) don't need a branch — just add/edit the `.md` file.
 - Check `vercel.json` / Vercel build behavior before touching dependency versions — there's a history of `vite` override issues on Vercel builds (see git log), so be careful with `overrides` in `package.json`.
+
+
+## Important
+
+1. Never push without my explicit permission
+2. The dev server is always running on port 4321. Reuse it.
