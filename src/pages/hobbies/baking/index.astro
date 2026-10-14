@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import Card from "../../../components/Card.astro";
+import RecipeCard from "../../../components/RecipeCard.astro";
 
 const allRecipes = await getCollection("recipes");
 const recipes = allRecipes.sort((a, b) => a.data.title.localeCompare(b.data.title));
@@ -17,12 +17,7 @@ const recipes = allRecipes.sort((a, b) => a.data.title.localeCompare(b.data.titl
     ) : (
       <div class="flex flex-col gap-4">
         {recipes.map((recipe) => (
-          <Card
-            title={recipe.data.title}
-            description={recipe.data.description}
-            href={`/hobbies/baking/${recipe.id}`}
-            meta={`${recipe.data.category} · Serves ${recipe.data.servings}`}
-          />
+          <RecipeCard id={recipe.id} {...recipe.data} />
         ))}
       </div>
     )

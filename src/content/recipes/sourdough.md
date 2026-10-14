@@ -10,6 +10,12 @@ ingredients:
   - "325g water (72% hydration)"
   - "90g active starter"
   - "9g salt"
+steps:
+  - "Mix flour and water, autolyse 30 minutes. Add starter and salt, incorporate well."
+  - "Do 4 sets of stretch and folds over 2 hours."
+  - "Bulk ferment at room temp until the dough has grown ~75% and is domed on top (6–10 hours depending on temp)."
+  - "Shape gently, place in a floured banneton, and cold retard overnight."
+  - "Bake in a Dutch oven: 25 min at 500°F lid on, then 20 min lid off until deep golden brown."
 ---
 
 Mix flour and water, autolyse 30 minutes. Add starter and salt, incorporate well.

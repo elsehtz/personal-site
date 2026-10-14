@@ -10,23 +10,23 @@ export async function getStaticPaths() {
 
 const { recipe } = Astro.props;
 const { Content } = await render(recipe);
-const { title, description, category, servings, prepTime, cookTime, ingredients } = recipe.data;
+const { title, description, servings, prepTime, cookTime, chillTime, ingredients, steps, tip } = recipe.data;
+const stats = [
+  ["Prep", prepTime],
+  ["Cook", cookTime],
+  ["Chill", chillTime],
+  ["Serves", recipe.data.yield ?? servings],
+].filter(([, v]) => v) as [string, string | number][];
 ---
 
 <ContentLayout title={title} description={description} backHref="/hobbies/baking" backLabel="Baking">
-  <div class="not-prose grid grid-cols-3 gap-4 mb-8 text-sm">
-    <div class="p-4 rounded-lg bg-neutral-900 border border-neutral-800">
-      <div class="text-neutral-500 mb-1">Prep</div>
-      <div class="text-neutral-200 font-medium">{prepTime}</div>
-    </div>
-    <div class="p-4 rounded-lg bg-neutral-900 border border-neutral-800">
-      <div class="text-neutral-500 mb-1">Cook</div>
-      <div class="text-neutral-200 font-medium">{cookTime}</div>
-    </div>
-    <div class="p-4 rounded-lg bg-neutral-900 border border-neutral-800">
-      <div class="text-neutral-500 mb-1">Serves</div>
-      <div class="text-neutral-200 font-medium">{servings}</div>
-    </div>
+  <div class="not-prose flex flex-wrap gap-4 mb-8 text-sm">
+    {stats.map(([label, value]) => (
+      <div class="p-4 rounded-lg bg-neutral-900 border border-neutral-800 min-w-28">
+        <div class="text-neutral-500 mb-1">{label}</div>
+        <div class="text-neutral-200 font-medium">{value}</div>
+      </div>
+    ))}
   </div>
 
   <h2>Ingredients</h2>
@@ -35,11 +35,14 @@ const { title, description, category, servings, prepTime, cookTime, ingredients 
   </ul>
 
   <h2>Method</h2>
-  {recipe.data.password ? (
+  {steps && steps.length > 0 ? (
+    <ol>{steps.map((step) => <li>{step}</li>)}</ol>
+  ) : recipe.data.password ? (
     <PasswordGate password={recipe.data.password}>
       <Content />
     </PasswordGate>
   ) : (
     <Content />
   )}
+  {tip && <p><em>{tip}</em></p>}
 </ContentLayout>

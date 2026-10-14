@@ -1,0 +1,25 @@
+---
+title: "Matcha Mini Cheesecakes"
+description: "Oreo-crust cheesecake bites with a mellow matcha filling, baked in a cupcake tin."
+category: "Dessert"
+yield: "~10 pieces"
+cookTime: "~35 min"
+ingredients:
+  - "1 cup ground Oreo cookies"
+  - "3 tbsp melted butter"
+  - "8 oz cream cheese (warm)"
+  - "100 g sugar"
+  - "1 large egg"
+  - "1 tsp matcha powder"
+steps:
+  - "Crush the Oreos to fine crumbs."
+  - "Mix in the melted butter until it looks like wet sand."
+  - "Press the crust into cupcake liners."
+  - "Bake at 350°F for 10–15 min."
+  - "Whisk the warm cream cheese until smooth and creamy."
+  - "Add the sugar and fold until no lumps remain."
+  - "Sift in the matcha."
+  - "Add the egg and mix until combined."
+  - "Fill the liners and bake at 350°F for 18–20 min."
+tip: "Warm cream cheese whisks smooth without lumps. Sifting the matcha keeps it from clumping."
+---
