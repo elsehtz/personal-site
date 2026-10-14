@@ -18,3 +18,7 @@ node_modules/
 # Vercel
 .vercel
 .claude/worktrees/
+
+# Playwright
+test-results/
+playwright-report/

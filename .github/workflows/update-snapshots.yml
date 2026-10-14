@@ -1,0 +1,37 @@
+name: Update visual baselines
+
+# Run manually after an intentional design change. Screenshots the given Vercel preview URL
+# on the same Linux runner CI compares against, then commits baselines to the branch.
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: Vercel preview URL for this branch (https://...vercel.app)
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      BASE_URL: ${{ inputs.url }}
+      VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test --update-snapshots
+      - name: Commit baselines
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tests/visual/__snapshots__
+          git diff --cached --quiet || git commit -m "Update visual regression baselines"
+          git push
