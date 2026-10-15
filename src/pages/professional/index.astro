@@ -1,6 +1,20 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { ResumeButton } from "../../components/ResumeButton";
+
+// Add Figma files here as { title, description?, href } to list them in the dropdown.
+const figmaPreviews: { title: string; description?: string; href: string }[] = [
+  {
+    title: "Zak ElSeht — Site Wireframes",
+    description: "Desktop wireframes and components for this site",
+    href: "https://www.figma.com/design/A9fduj32Y6T7qVM4RRIzix/Zak-ElSeht-%E2%80%94-Site-Wireframes",
+  },
+  {
+    title: "World Cup Terminal — Wireframes",
+    description: "Wireframes for the World Cup Terminal (WCT)",
+    href: "https://www.figma.com/design/OgtS7bUjltGmqNBED3O7kF/World-Cup-Terminal-%E2%80%94-Wireframes",
+  },
+];
 ---
 
 <BaseLayout title="Professional">
@@ -39,6 +53,46 @@ import { ResumeButton } from "../../components/ResumeButton";
         </div>
         <span class="text-neutral-500 group-hover:text-neutral-300 transition-colors text-sm">↗</span>
       </a>
+
+      <details class="group border border-neutral-800 rounded-lg hover:border-neutral-600 open:border-neutral-600 transition-colors">
+        <summary class="flex items-center justify-between px-5 py-4 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 text-neutral-500 group-open:text-neutral-300 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z" />
+            </svg>
+            <div>
+              <p class="text-sm font-medium text-neutral-100">Figma</p>
+              <p class="text-xs text-neutral-500 mt-0.5">Design previews</p>
+            </div>
+          </div>
+          <span class="text-neutral-500 group-hover:text-neutral-300 group-open:rotate-180 transition-all text-sm">▾</span>
+        </summary>
+
+        <ul class="border-t border-neutral-800 px-5 py-3 flex flex-col">
+          {
+            figmaPreviews.length === 0 ? (
+              <li class="text-xs text-neutral-500 py-2">Nothing here yet.</li>
+            ) : (
+              figmaPreviews.map(({ title, description, href }) => (
+                <li>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="group/item flex items-center justify-between py-2"
+                  >
+                    <div>
+                      <p class="text-sm text-neutral-300 group-hover/item:text-neutral-100 transition-colors">{title}</p>
+                      {description && <p class="text-xs text-neutral-500 mt-0.5">{description}</p>}
+                    </div>
+                    <span class="text-neutral-500 group-hover/item:text-neutral-300 transition-colors text-sm">↗</span>
+                  </a>
+                </li>
+              ))
+            )
+          }
+        </ul>
+      </details>
     </div>
   </div>
 </BaseLayout>

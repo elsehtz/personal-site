@@ -1,7 +1,6 @@
 ---
 const navLinks = [
   { href: "/projects", label: "Projects" },
-  { href: "/digital-journal", label: "Journal" },
   { href: "/hobbies", label: "Hobbies" },
   { href: "/professional", label: "Professional" },
 ];
@@ -11,9 +10,6 @@ const current = Astro.url.pathname;
 function isActive(href: string) {
   if (href === "/projects") {
     return current.startsWith("/projects") || current.startsWith("/software") || current.startsWith("/builds");
-  }
-  if (href === "/digital-journal") {
-    return current.startsWith("/digital-journal") || current.startsWith("/blog");
   }
   return current.startsWith(href);
 }
@@ -45,6 +41,17 @@ function isActive(href: string) {
           </li>
         ))
       }
+      {/*
+      <li>
+        <a
+          href="/erratic-works"
+          class="text-sm font-medium tracking-wide transition-colors relative group line-through"
+          style="color: #ef4444;"
+        >
+          Erratic Works
+        </a>
+      </li>
+      */}
     </ul>
 
     <!-- Mobile hamburger -->
@@ -71,6 +78,17 @@ function isActive(href: string) {
           </li>
         ))
       }
+      {/*
+      <li>
+        <a
+          href="/erratic-works"
+          class="text-base font-medium block py-1 line-through"
+          style="color: #ef4444;"
+        >
+          Erratic Works
+        </a>
+      </li>
+      */}
     </ul>
   </div>
 </header>

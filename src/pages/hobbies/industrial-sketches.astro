@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+// Drop images in public/sketches/ and add entries here.
+const sketches: { src: string; title: string; description?: string; date?: string }[] = [];
+---
+
+<BaseLayout title="Industrial Sketches" description="Concept sketches of products, mechanisms, and industrial design ideas.">
+  <a href="/hobbies" class="text-sm text-neutral-400 hover:text-neutral-200 mb-8 inline-block">← Hobbies</a>
+  <h1 class="text-3xl font-bold text-neutral-100 mb-2">Industrial Sketches</h1>
+  <p class="text-neutral-400 mb-12">Concept sketches of products, mechanisms, and industrial design ideas.</p>
+
+  {
+    sketches.length === 0 ? (
+      <p class="text-neutral-500 text-sm">Sketches coming soon.</p>
+    ) : (
+      <div class="grid gap-6 sm:grid-cols-2">
+        {sketches.map(({ src, title, description, date }) => (
+          <figure class="rounded-lg border border-neutral-800 overflow-hidden">
+            <img src={src} alt={title} loading="lazy" class="w-full" />
+            <figcaption class="p-4">
+              <h2 class="font-semibold text-neutral-100">{title}</h2>
+              {description && <p class="text-sm text-neutral-400 mt-1">{description}</p>}
+              {date && <p class="text-xs text-neutral-500 mt-2 font-mono">{date}</p>}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    )
+  }
+</BaseLayout>

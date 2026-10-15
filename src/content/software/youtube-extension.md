@@ -2,7 +2,7 @@
 title: "Return of the chrome extensions"
 description: "Youtube sucks now and I want a cleaner interface. Long version: Ever get tired of the incessant noise in your frequent app-space? It's honestly depressing."
 category: "DIY"
-date: 2026-03-22
+date: 2026-03-25
 status: "completed"
 github: "https://github.com/elsehtz/g-drive-editor-theme-extension"
 ---

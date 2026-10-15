@@ -2,7 +2,7 @@
 title: "Marketing exercise: THC-infused runners gel"
 description: "Taking the runners high to a whole new level. Mid run refueling reimagined"
 category: ""
-date: 2026-06-20
+date: 2026-06-23
 status: "WIP"
 github: ""
 draft: false

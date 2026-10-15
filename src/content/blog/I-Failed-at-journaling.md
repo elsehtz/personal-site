@@ -1,7 +1,7 @@
 ---
 title: "Failure: A Compromise to journal sporadically"
 description: "I will now exhibit journaling with the cadence akin to HxH chapter releases"
-date: 2026-03-17
+date: 2026-03-19
 tags: ["other"]        # options: "tech", "political", "other"
 draft: true
 ---

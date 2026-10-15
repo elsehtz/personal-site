@@ -22,3 +22,4 @@ node_modules/
 # Playwright
 test-results/
 playwright-report/
+esc_joystick_control/

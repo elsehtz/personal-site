@@ -2,7 +2,7 @@
 title: "3D print: Altitude brand highlighter holders"
 description: "A highlighter shelf. for my workbench"
 tags: ["Bambu", "DIY", "Print"]
-date: 2026-03-10
+date: 2026-03-20
 category: "3dprint"
 ---
 

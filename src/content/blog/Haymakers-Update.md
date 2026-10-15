@@ -1,7 +1,7 @@
 ---
 title: "Tying two journeys"
 description: "A breif overview of my relationships with boxing and cancer. And now both"
-date: 2026-03-17
+date: 2026-03-19
 tags: ["other"]        # options: "tech", "political", "other"
 draft: true
 ---

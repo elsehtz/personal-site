@@ -2,7 +2,7 @@
 title: "A quick chrome extension"
 description: "Got bored while using drive, and said 'hey, why not?'"
 category: "DIY"
-date: 2026-03-20
+date: 2026-03-25
 status: "completed"
 github: "https://github.com/elsehtz/g-drive-editor-theme-extension"
 draft: true

@@ -1,17 +1,95 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const goodreadsProfile = "https://www.goodreads.com/user/show/197747787-zak-elseht";
 ---
 
 <BaseLayout title="Books" description="Books I'm reading and have read.">
   <a href="/hobbies" class="text-sm text-neutral-400 hover:text-neutral-200 mb-8 inline-block">← Hobbies</a>
   <h1 class="text-3xl font-bold text-neutral-100 mb-2">Books</h1>
   <p class="text-neutral-400 mb-8">
-    I track my reading on Goodreads. You can follow along or see my shelf there.
+    I track my reading on Goodreads. Here's what's on my nightstand right now.
   </p>
+
+  <section class="mb-10">
+    <p class="section-label mb-4">Recent reads</p>
+    <ul id="goodreads-books" class="grid grid-cols-3 gap-4 sm:gap-6">
+      {
+        Array.from({ length: 3 }).map(() => (
+          <li class="aspect-[2/3] rounded-md border border-neutral-800 bg-neutral-900 animate-pulse" />
+        ))
+      }
+    </ul>
+    <p id="goodreads-error" class="hidden text-sm text-neutral-500 mt-4">
+      Couldn't reach Goodreads right now.
+    </p>
+  </section>
+
   <a
-    href="https://www.goodreads.com"
+    href={goodreadsProfile}
+    target="_blank"
+    rel="noopener noreferrer"
     class="inline-block text-sm text-neutral-300 border border-neutral-700 rounded px-4 py-2 hover:border-neutral-500 transition-colors"
   >
-    View my Goodreads shelf →
+    View my Goodreads profile →
   </a>
 </BaseLayout>
+
+<script>
+  type Book = { title: string; author: string; cover: string; link: string; status: "reading" | "read" };
+
+  const list = document.getElementById("goodreads-books");
+  const error = document.getElementById("goodreads-error");
+
+  function renderBook(book: Book): HTMLLIElement {
+    const li = document.createElement("li");
+
+    const a = document.createElement("a");
+    a.href = book.link;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    a.className = "group block";
+
+    const frame = document.createElement("div");
+    frame.className =
+      "relative aspect-[2/3] overflow-hidden rounded-md border border-neutral-800 transition-colors group-hover:border-neutral-600";
+
+    const img = document.createElement("img");
+    img.src = book.cover;
+    img.alt = `Cover of ${book.title}`;
+    img.loading = "lazy";
+    img.className = "h-full w-full object-cover transition-transform duration-500 group-hover:scale-105";
+    frame.append(img);
+
+    if (book.status === "reading") {
+      const badge = document.createElement("span");
+      badge.textContent = "Reading";
+      badge.className =
+        "absolute top-2 left-2 font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 rounded bg-neutral-950/80";
+      badge.style.color = "var(--accent)";
+      frame.append(badge);
+    }
+
+    const title = document.createElement("p");
+    title.textContent = book.title;
+    title.className = "mt-3 text-sm font-medium text-neutral-100 leading-snug line-clamp-2 group-hover:text-white";
+
+    const author = document.createElement("p");
+    author.textContent = book.author;
+    author.className = "font-mono text-xs text-neutral-500 mt-1";
+
+    a.append(frame, title, author);
+    li.append(a);
+    return li;
+  }
+
+  fetch("/api/goodreads")
+    .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
+    .then(({ books }: { books: Book[] }) => {
+      list?.replaceChildren(...books.map(renderBook));
+    })
+    .catch(() => {
+      list?.classList.add("hidden");
+      error?.classList.remove("hidden");
+    });
+</script>
